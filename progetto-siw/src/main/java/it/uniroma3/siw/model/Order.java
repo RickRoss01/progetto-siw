@@ -1,6 +1,6 @@
 package it.uniroma3.siw.model;
 
-import java.sql.Date;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,17 +8,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 
 @Entity
+@Table(name = "orders")
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nome;
-	private Date dataOrdine;
+
+	@CreationTimestamp
+	private Instant createdOn;
 
 	@ManyToOne
 	private Customer customer;
@@ -27,6 +34,7 @@ public class Order {
 	private PriceList priceList;
 
 	@OneToMany
+	@JoinColumn(name = "orders_id")
 	private List<OrderLine> orderLines;
 
 	public Order() {
@@ -44,11 +52,26 @@ public class Order {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Date getDataOrdine() {
-		return dataOrdine;
+
+	
+
+	public Instant getCreatedOn() {
+		return createdOn;
 	}
-	public void setDataOrdine(Date dataOrdine) {
-		this.dataOrdine = dataOrdine;
+	public void setCreatedOn(Instant createdOn) {
+		this.createdOn = createdOn;
+	}
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	public List<OrderLine> getOrderLines() {
+		return orderLines;
+	}
+	public void setOrderLines(List<OrderLine> orderLines) {
+		this.orderLines = orderLines;
 	}
 	public PriceList getPriceList() {
 		return priceList;
