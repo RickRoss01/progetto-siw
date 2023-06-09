@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -14,6 +15,10 @@ public class Contact {
 	private String nome;
 	private String cognome;
 	private int telefono;
+
+	@ManyToOne
+	private Customer customer;
+
 	public Long getId() {
 		return id;
 	}
