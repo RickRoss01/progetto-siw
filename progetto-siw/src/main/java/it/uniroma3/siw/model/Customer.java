@@ -21,7 +21,10 @@ public class Customer {
 	private String cap;
 	private int telefono;
 
-	@OneToMany
+	@OneToMany(mappedBy = "customer")
+	private List<Contact> contacts;
+
+	@OneToMany(mappedBy = "customer")
 	private List<Order> orders;
 	
 	

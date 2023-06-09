@@ -21,6 +21,9 @@ public class Order {
 	private Date dataOrdine;
 
 	@ManyToOne
+	private Customer customer;
+
+	@ManyToOne
 	private PriceList priceList;
 
 	@OneToMany
