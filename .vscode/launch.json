@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ProgettoSiwApplication",
+            "request": "launch",
+            "mainClass": "it.uniroma3.siw.ProgettoSiwApplication",
+            "projectName": "siw-spring-03"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-ProgettoSiwApplication<progetto-siw>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
