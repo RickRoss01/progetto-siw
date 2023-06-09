@@ -12,11 +12,11 @@ public class OrderLine {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private int costoUnitario;
+	private int costoTotale;
 	private int quantita;
 
 	@ManyToOne
-	private Product product;
+	private PriceListItem priceListItem;
 
 	public Long getId() {
 		return id;
@@ -24,11 +24,11 @@ public class OrderLine {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public int getCostoUnitario() {
-		return costoUnitario;
+	public int getCostoTotale() {
+		return costoTotale;
 	}
-	public void setCostoUnitario(int costoUnitario) {
-		this.costoUnitario = costoUnitario;
+	public void setCostoTotale(int costoUnitario) {
+		this.costoTotale = costoUnitario;
 	}
 	public int getQuantita() {
 		return quantita;
@@ -36,12 +36,14 @@ public class OrderLine {
 	public void setQuantita(int quantita) {
 		this.quantita = quantita;
 	}
-	public Product getProduct() {
-		return product;
+
+	public PriceListItem getPriceListItem() {
+		return priceListItem;
 	}
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setPriceListItem(PriceListItem priceListItem) {
+		this.priceListItem = priceListItem;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -65,6 +67,7 @@ public class OrderLine {
 			return false;
 		return true;
 	}
+	
 
 	
 	
