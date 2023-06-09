@@ -58,12 +58,6 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 		.loginPage("/login")
 		// se il login ha successo, si viene rediretti al path /default
 		.defaultSuccessUrl("/success", true)
-		.and()
-            .oauth2Login()
-            .loginPage("/login")
-            .defaultSuccessUrl("/success")
-            .failureUrl("/login?error=true")
-            .permitAll()
 
 		// LOGOUT: qui definiamo il logout
 		.and()
