@@ -38,7 +38,10 @@ public class AuthenticationController {
     private UserRepository userRepository;
 
 
-
+    @GetMapping(value = "/") 
+	public String index (Model model) {
+		return "index.html";
+	}
 	
 	@GetMapping(value = "/register") 
 	public String showRegisterForm (Model model) {
@@ -121,7 +124,7 @@ public class AuthenticationController {
        
         
     }
-    return movieController.index(model);
+    return "index.html";
 }
 
     @PostMapping(value = { "/register" })
