@@ -38,18 +38,18 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 		// AUTORIZZAZIONE: qui definiamo chi può accedere a cosa
 		.authorizeRequests()
 		// chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
-		.antMatchers(HttpMethod.GET, "/", "/index", "/login", "/register", "/css/**", "/images/**", "favicon.ico","/movie/**","/movies/**","/foundmMovies","/artists/**","/artist/**").permitAll()
+		.antMatchers(HttpMethod.GET, "/index", "/login", "/register", "/css/**", "/images/**", "favicon.ico","/movie/**","/movies/**","/foundmMovies","/artists/**","/artist/**").permitAll()
 		// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
 		.antMatchers(HttpMethod.POST, "/login", "/register","/searchMovies").permitAll()
 		// solo gli utenti autenticati possono accedere a risorse con path /authenticated/**
-		.antMatchers(HttpMethod.GET, "/authenticated/**").hasAnyAuthority(DEFAULT_ROLE,ADMIN_ROLE)
+		.antMatchers(HttpMethod.GET, "/authenticated/**","/").hasAnyAuthority(DEFAULT_ROLE,ADMIN_ROLE)
 		.antMatchers(HttpMethod.POST, "/newReview").hasAnyAuthority(DEFAULT_ROLE,ADMIN_ROLE)
 		// solo gli utenti autenticati con ruolo ADMIN possono accedere a risorse con path /admin/**
 		.antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
 		.antMatchers(HttpMethod.POST, "/admin/**","/image/fileSystem").hasAnyAuthority(ADMIN_ROLE)
 		// tutti gli utenti autenticati possono accere alle pagine rimanenti 
 		.anyRequest().authenticated()
-		.and().exceptionHandling().accessDeniedPage("/index")
+		.and().exceptionHandling().accessDeniedPage("/login")
 
 		// LOGIN: qui definiamo come è gestita l'autenticazione
 		// usiamo il protocollo formlogin 
@@ -58,14 +58,19 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 		.loginPage("/login")
 		// se il login ha successo, si viene rediretti al path /default
 		.defaultSuccessUrl("/success", true)
-
+		.and()
+            .oauth2Login()
+            .loginPage("/login")
+            .defaultSuccessUrl("/success")
+            .failureUrl("/login?error=true")
+            .permitAll()
 		// LOGOUT: qui definiamo il logout
 		.and()
 		.logout()
 		// il logout è attivato con una richiesta GET a "/logout"
 		.logoutUrl("/logout")
 		// in caso di successo, si viene reindirizzati alla home
-		.logoutSuccessUrl("/")
+		.logoutSuccessUrl("/login")
 		.invalidateHttpSession(true)
 		.deleteCookies("JSESSIONID")
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

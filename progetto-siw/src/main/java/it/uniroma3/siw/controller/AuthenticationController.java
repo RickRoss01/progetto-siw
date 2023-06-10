@@ -109,7 +109,7 @@ public class AuthenticationController {
                 Authentication newAuthentication = new UsernamePasswordAuthenticationToken(principal, credentials, updatedAuthorities);
                 SecurityContextHolder.getContext().setAuthentication(newAuthentication);
                 if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) 
-                    return "admin/indexAdmin.html";
+                    return "index.html";
             }
         
             
@@ -118,7 +118,7 @@ public class AuthenticationController {
             UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	    Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
     	    if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
-                return "admin/indexAdmin.html";
+                return "index.html";
             
         }
        
