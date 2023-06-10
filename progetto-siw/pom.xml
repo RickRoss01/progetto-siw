@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>it.uniroma3.siw</groupId>
-	<artifactId>siw-spring-03</artifactId>
+	<artifactId>siw-crm</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>siw-spring-03</name>
 	<description>Demo project for Spring Boot</description>
