@@ -7,7 +7,13 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/stileindex.css">
+  <style>
+    .col-md-10{
+      padding: 0;
+    }
+  </style>
 </head>
+
 <body>
   <nav class="navbar" style="background-color: #e3f2fd;">
     <div class="container-fluid">
@@ -23,6 +29,8 @@
       </div>
     </div>
   </nav>
+
+
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-2 sitemap">
@@ -44,21 +52,28 @@
           </li>
         </ul>
       </div>
+
       <div class="col-md-10 main-content" >
-        <table class="table-ext">
+        <div class="table-responsive">
+        <table class="table">
           <thead>
                 <tr>
-                    <th>Immagine</th>
-                    <th>Titolo</th> 
+                    <th>Ragione Sociale</th>
+                    <th>Nazione</th> 
+                    <th>Indirizzo</th> 
+                    <th>Cap</th> 
+                    <th>Modifica</th> 
               </tr>
           </thead>
   
         <tbody>
             <tr>
-            <td colspan="2">
-                <div class="divinterno" >
-                    <table class="table-int" th:each="customer : ${customers}">
+            <td colspan="5">
+                <div class="" >
+                    <table class="" th:each="customer : ${customers}">
                         <tr>
+                            <td><a th:href="@{'/customer' + '/' + ${customer.id}}" th:text="${customer.ragioneSociale}"></a></td>
+                            <td><a th:href="@{'/customer' + '/' + ${customer.id}}" th:text="${customer.ragioneSociale}"></a></td>
                             <td><a th:href="@{'/customer' + '/' + ${customer.id}}" th:text="${customer.ragioneSociale}"></a></td>
                             <td><a th:href="@{'/customer' + '/' + ${customer.id}}" th:text="${customer.ragioneSociale}"></a></td>
                         </tr>
@@ -68,6 +83,7 @@
            </tr> 
         </tbody>
         </table>
+      </div>
       </div>
     </div>
     </div>

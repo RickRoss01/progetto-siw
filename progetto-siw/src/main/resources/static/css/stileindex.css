@@ -59,16 +59,22 @@ body, html {
     text-decoration: none;
   }
 
-  .table-ext thead th {
+  .table-ext {
+    width:100%;
+    background-color: #4949495d;
+    position: relative;
+}
+
+.table-ext thead th {
     height:60px;
     text-align: center;
     background: rgba(255, 0, 0, 0.281);
     color:#fff;
-    width: 100%;
+    width: 25%;
 }
 
 .divinterno{
-    height:640px; 
+    height:600px; 
     overflow: auto;
     width:100%;
 }
@@ -79,7 +85,7 @@ width:100%;
 .table-int td {
 height:40px;
 line-height:40px;
-width: 50%;
+width: 25%;
 border-bottom: 2px solid black;
 text-align: center;
 }
