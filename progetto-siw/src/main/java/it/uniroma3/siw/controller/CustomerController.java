@@ -16,7 +16,7 @@ public class CustomerController{
 
     @GetMapping(value = "/customers")
     private String getCustomers(Model model){
-        model.addAttribute("customers",this.customerService.getAllCustomersBy50());
+        model.addAttribute("customers",this.customerService.getAllCustomersBy50(1));
         return "customers.html";
     }
 }
