@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Vertical Sitemap using Bootstrap</title>
   <meta charset="UTF-8">
@@ -8,7 +9,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/stileindex.css">
   <style>
-    .col-md-10{
+    .col-md-10 {
       padding: 0;
     }
   </style>
@@ -23,9 +24,13 @@
         <button class="btn btn-outline-primary" type="submit">Search</button>
       </form>
       <div class="d-flex align-items-center">
-        <span th:if="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}" th:text="'Ciao, ' + ${#request.userPrincipal.principal.attributes.name}"> </span>
-			  <span th:unless="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}" th:text="'Ciao, ' + ${#request.userPrincipal.principal.username}"> </span>
-        <a href="/logout" class="btn btn-outline-primary" >Log Out</a>
+        <span
+          th:if="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
+          th:text="'Ciao, ' + ${#request.userPrincipal.principal.attributes.name}"> </span>
+        <span
+          th:unless="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
+          th:text="'Ciao, ' + ${#request.userPrincipal.principal.username}"> </span>
+        <a href="/logout" class="btn btn-outline-primary">Log Out</a>
       </div>
     </div>
   </nav>
@@ -53,39 +58,29 @@
         </ul>
       </div>
 
-      <div class="col-md-10 main-content" >
+      <div class="col-md-10 main-content">
         <div class="table-responsive">
-        <table class="table">
-          <thead>
-                <tr>
-                    <th>Ragione Sociale</th>
-                    <th>Nazione</th> 
-                    <th>Indirizzo</th> 
-                    <th>Cap</th> 
-                    <th>Modifica</th> 
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Ragione Sociale</th>
+                <th scope="col">Nazione</th>
+                <th scope="col">Indirizzo</th>
+                <th scope="col">Cap</th>
               </tr>
-          </thead>
-  
-        <tbody>
-            <tr>
-            <td colspan="5">
-                <div class="" >
-                    <table class="" th:each="customer : ${customers}">
-                        <tr>
-                            <td><a th:href="@{'/customer' + '/' + ${customer.id}}" th:text="${customer.ragioneSociale}"></a></td>
-                            <td><a th:href="@{'/customer' + '/' + ${customer.id}}" th:text="${customer.ragioneSociale}"></a></td>
-                            <td><a th:href="@{'/customer' + '/' + ${customer.id}}" th:text="${customer.ragioneSociale}"></a></td>
-                            <td><a th:href="@{'/customer' + '/' + ${customer.id}}" th:text="${customer.ragioneSociale}"></a></td>
-                        </tr>
-                     </table>
-                </div>
-            </td>
-           </tr> 
-        </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              <tr th:each="customer : ${customers}">
+                <th scope="row"><a th:text="${customer.ragioneSociale}" th:href="@{'/customer/' + ${customer.id}}" class="stretched-link"></a></th>
+                  <td th:text="${customer.nazione}">Mark</td>
+                  <td th:text="${customer.indirizzo}">Otto</td>
+                  <td th:text="${customer.cap}">@mdo</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-    </div>
+  </div>
   </div>
 </body>
