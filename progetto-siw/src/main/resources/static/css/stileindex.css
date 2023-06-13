@@ -89,3 +89,17 @@ width: 25%;
 border-bottom: 2px solid black;
 text-align: center;
 }
+
+tr{
+  transform: rotate(0);
+}
+
+tr:hover{
+  background-color: #e9ecef;
+}
+
+.table tbody tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
