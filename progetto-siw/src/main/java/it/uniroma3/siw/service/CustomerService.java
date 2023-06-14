@@ -32,12 +32,11 @@ public class CustomerService {
 
     public Customer updateCustomer(Customer customer,BindingResult bindingResult) {
         this.customerValidator.validate(customer, bindingResult);
-        Customer c = this.customerRepository.findById(customer.getId()).get(); 
         if (bindingResult.hasErrors()) {
-            return c;
+            return customer;
         }
         this.customerRepository.save(customer); 
-        return c;
+        return customer;
     }
 
 
