@@ -103,3 +103,10 @@ tr:hover{
   border-bottom: 1px solid #ddd;
 }
 
+.d-flex span{
+  padding: 5px;
+}
+
+.d-flex{
+  justify-content: space-evenly;
+}
