@@ -11,4 +11,6 @@ import it.uniroma3.siw.model.Customer;
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
     @Query("SELECT c FROM Customer c")
     List<Customer> findAllCustomers(Pageable pageable);
+
+    public boolean existsByRagioneSocialeAndIndirizzo(String ragioneSociale, String indirizzo);
 }
