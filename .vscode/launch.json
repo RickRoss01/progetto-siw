@@ -5,6 +5,13 @@
             "name": "ProgettoSiwApplication",
             "request": "launch",
             "mainClass": "it.uniroma3.siw.ProgettoSiwApplication",
+            "projectName": "siw-crm"
+        },
+        {
+            "type": "java",
+            "name": "ProgettoSiwApplication",
+            "request": "launch",
+            "mainClass": "it.uniroma3.siw.ProgettoSiwApplication",
             "projectName": "siw-spring-03"
         },
         {

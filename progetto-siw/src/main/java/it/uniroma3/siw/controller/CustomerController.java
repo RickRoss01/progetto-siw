@@ -3,6 +3,7 @@ package it.uniroma3.siw.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,8 +33,8 @@ public class CustomerController{
     }
 
     @PostMapping(value = "/formUpdateCustomer")
-        private String updateCustomer(@ModelAttribute("customer") Customer customer, Model model){
-            Customer customerUpdate = this.customerService.updateCustomer(customer);
+        private String updateCustomer(@ModelAttribute("customer") Customer customer, Model model, BindingResult bindingResult){
+            Customer customerUpdate = this.customerService.updateCustomer(customer,bindingResult);
             model.addAttribute("customerUpdate", customerUpdate);
             return "customer.html";
     }
