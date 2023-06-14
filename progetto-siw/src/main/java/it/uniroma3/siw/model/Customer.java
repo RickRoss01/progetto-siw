@@ -21,10 +21,17 @@ public class Customer {
 	private Long id;
 	@NotBlank
 	private String ragioneSociale;
+	@NotBlank
 	private String nazione;
+	@NotBlank
+	private String pIva;
+	@NotBlank
 	private String indirizzo;
+	private Integer fax;
 	private String cap;
 	private int telefono;
+	private String email;
+	private Integer numeroCivico;
 
 	@CreationTimestamp
     private Instant createdOn;
@@ -39,6 +46,46 @@ public class Customer {
 	public Customer() {
 		this.orders = new ArrayList<Order>();
 		this.contacts = new ArrayList<Contact>();
+	}
+	
+	public Integer getNumeroCivico() {
+		return numeroCivico;
+	}
+
+	public void setNumeroCivico(Integer numeroCivico) {
+		this.numeroCivico = numeroCivico;
+	}
+
+	public String getpIva() {
+		return pIva;
+	}
+
+	public void setpIva(String pIva) {
+		this.pIva = pIva;
+	}
+
+	public Integer getFax() {
+		return fax;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setFax(Integer fax) {
+		this.fax = fax;
+	}
+
+	public List<Contact> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(List<Contact> contacts) {
+		this.contacts = contacts;
 	}
 
 	public Long getId() {

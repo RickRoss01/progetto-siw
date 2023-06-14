@@ -83,7 +83,7 @@ tr:hover{
   color: black;
 }
 
-#menu a:hover {
+#menu a:hover , #menu button:hover {
   text-decoration: none;
   color: #005ba1;
   background-color: #e9ecef;

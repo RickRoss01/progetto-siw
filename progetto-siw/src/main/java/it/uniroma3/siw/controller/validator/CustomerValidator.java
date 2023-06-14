@@ -20,8 +20,16 @@ public class CustomerValidator implements Validator {
     @Override
 	public void validate(Object o, Errors errors) {
 		Customer customer = (Customer)o;
-		if (customer.getRagioneSociale()!=null && customer.getIndirizzo()!=null 
-				&& customerRepository.existsByRagioneSocialeAndIndirizzo(customer.getRagioneSociale(),customer.getIndirizzo())) {
+		if (customer.getpIva()!=null 
+				&& customerRepository.existsBypIva(customer.getpIva())) {
+			errors.reject("customer.duplicate");
+		}
+	}
+	public void validateExistingCustomer(Object o, Errors errors) {
+		Customer customer = (Customer)o;
+		Integer s = customerRepository.countBypIva(customer.getpIva());
+		if (customer.getpIva()!=null 
+				&& customerRepository.countOtherCustomersWithSamePIva(customer.getId(), customer.getpIva()) > 0) {
 			errors.reject("customer.duplicate");
 		}
 	}

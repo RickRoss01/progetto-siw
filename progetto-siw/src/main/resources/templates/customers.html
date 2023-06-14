@@ -76,6 +76,8 @@
             </a>
 
             
+
+            
               <div class="d-flex align-items-center">
                 <span style="padding: 5px; background-color: transparent;">Seleziona vista</span><select class="form-select" aria-label="Default select example">
                   <option selected>Tutti i clienti</option>
@@ -89,6 +91,7 @@
             <thead>
               <tr>
                 <th scope="col">Ragione Sociale</th>
+                <th scope="col">P. IVA</th>
                 <th scope="col">Nazione</th>
                 <th scope="col">Indirizzo</th>
                 <th scope="col">Cap</th>
@@ -97,9 +100,10 @@
             <tbody>
               <tr th:each="customer : ${customers}">
                 <th scope="row"><a th:text="${customer.ragioneSociale}" th:href="@{'/customer/' + ${customer.id}}" class="stretched-link"></a></th>
-                  <td th:text="${customer.nazione}">Mark</td>
-                  <td th:text="${customer.indirizzo}">Otto</td>
-                  <td th:text="${customer.cap}">@mdo</td>
+                  <td th:text="${customer.pIva}">0555011</td>
+                  <td th:text="${customer.nazione}">Italia</td>
+                  <td th:text="${customer.indirizzo}">Via Roma</td>
+                  <td th:text="${customer.cap}">00152</td>
                 </tr>
             </tbody>
           </table>

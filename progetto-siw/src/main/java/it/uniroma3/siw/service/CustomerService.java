@@ -31,7 +31,7 @@ public class CustomerService {
     }
 
     public Customer updateCustomer(Customer customer,BindingResult bindingResult) {
-        this.customerValidator.validate(customer, bindingResult);
+        this.customerValidator.validateExistingCustomer(customer, bindingResult);
         if (bindingResult.hasErrors()) {
             return customer;
         }
