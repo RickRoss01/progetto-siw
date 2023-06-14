@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 
 @Entity
@@ -15,11 +19,15 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@NotBlank
 	private String ragioneSociale;
 	private String nazione;
 	private String indirizzo;
 	private String cap;
 	private int telefono;
+
+	@CreationTimestamp
+    private Instant createdOn;
 
 	@OneToMany(mappedBy = "customer")
 	private List<Contact> contacts;

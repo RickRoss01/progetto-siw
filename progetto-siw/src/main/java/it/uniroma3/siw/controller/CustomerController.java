@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +35,7 @@ public class CustomerController{
     }
 
     @PostMapping(value = "/formUpdateCustomer")
-        private String updateCustomer(@ModelAttribute("customer") Customer customer, Model model, BindingResult bindingResult){
+        private String updateCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult bindingResult, Model model){
             Customer customerUpdate = this.customerService.updateCustomer(customer,bindingResult);
             model.addAttribute("customerUpdate", customerUpdate);
             return "customer.html";
