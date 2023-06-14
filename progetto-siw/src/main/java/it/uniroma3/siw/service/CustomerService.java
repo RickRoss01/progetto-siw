@@ -24,5 +24,11 @@ public class CustomerService {
         return this.customerRepository.findById(id).get();
     }
 
+    public Customer updateCustomer(Customer customer) {
+        Customer c = this.customerRepository.findById(customer.getId()).get(); 
+        this.customerRepository.save(customer); 
+        return c;
+    }
+
 
 }
