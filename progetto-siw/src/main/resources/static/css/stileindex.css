@@ -78,21 +78,17 @@ tr:hover{
   padding: 5px;
 }
 
-.d-flex:hover {
-
-}
-
 .d-flex a {
   text-decoration: none;
   color: black;
 }
 
-.d-flex a:hover {
+#menu a:hover {
   text-decoration: none;
   color: #005ba1;
   background-color: #e9ecef;
 }
 
-.d-flex span:hover {
+#menu span:hover {
   background-color: #e9ecef;
 }

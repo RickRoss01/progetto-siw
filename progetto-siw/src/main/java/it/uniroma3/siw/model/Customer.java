@@ -30,6 +30,7 @@ public class Customer {
 	
 	public Customer() {
 		this.orders = new ArrayList<Order>();
+		this.contacts = new ArrayList<Contact>();
 	}
 
 	public Long getId() {
