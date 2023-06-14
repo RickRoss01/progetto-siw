@@ -63,9 +63,22 @@
       <div class="col-md-10 main-content">
         
           <div class="d-flex">
+
+            <a href="/customers">
+              <div class="d-flex align-items-center">
+              <span><i class="fa-solid fa-reply" style="padding: 5px"></i></span>
+              </div>
+            </a>
+
             <a href="#">
               <div class="d-flex align-items-center">
               <span><i class="fa-solid fa-plus" style="padding: 5px"></i>Nuovo</span>
+              </div>
+            </a>
+
+            <a href="#">
+              <div class="d-flex align-items-center">
+              <span><i class="fa-solid fa-trash-can" style="padding: 5px"></i>Elimina</span>
               </div>
             </a>
 
@@ -75,35 +88,20 @@
               </div>
             </a>
 
-            
-              <div class="d-flex align-items-center">
-                <span style="padding: 5px; background-color: transparent;">Seleziona vista</span><select class="form-select" aria-label="Default select example">
-                  <option selected>Tutti i clienti</option>
-                  <option value="1">Miei clienti</option>
-                </select>
-              </div>
-
           </div>
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Ragione Sociale</th>
-                <th scope="col">Nazione</th>
-                <th scope="col">Indirizzo</th>
-                <th scope="col">Cap</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each="customer : ${customers}">
-                <th scope="row"><a th:text="${customer.ragioneSociale}" th:href="@{'/customer/' + ${customer.id}}" class="stretched-link"></a></th>
-                  <td th:text="${customer.nazione}">Mark</td>
-                  <td th:text="${customer.indirizzo}">Otto</td>
-                  <td th:text="${customer.cap}">@mdo</td>
-                </tr>
-            </tbody>
-          </table>
-        </div>
+          <div class="d-flex">
+
+            <div class="d-flex flex-column">
+              <div th:text="${customer.ragioneSociale}"></div>
+              <div th:text="${customer.nazione}"></div>
+              <div th:text="${customer.indirizzo}"></div>
+              <div th:text="${customer.cap}"></div>
+            </div>
+
+            <div class="d-flex">
+            </div>
+          
+          </div>
       </div>
     </div>
   </div>
