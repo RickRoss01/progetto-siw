@@ -79,7 +79,7 @@
       </div>
 
       <div class="col-md-10 main-content">
-        <form th:action="@{/formUpdateCustomer}" method="POST" th:object="${customer}">
+        <form th:if="${customer.id}" th:action="@{/formUpdateCustomer}" method="POST" th:object="${customer}">
           <div class="d-flex" id="menu">
 
             <a href="/customers">
@@ -88,19 +88,19 @@
               </div>
             </a>
 
-            <a href="#">
+            <a href="/formNewCustomer">
               <div class="d-flex align-items-center">
                 <span><i class="fa-solid fa-plus" style="padding: 5px"></i>Nuovo</span>
               </div>
             </a>
 
-            <a href="#" >
+            <a th:href="@{'/eliminaCustomer/' + ${customer.id}}" th:if="${customer.id}">
               <div class="d-flex align-items-center">
                 <span><i class="fa-solid fa-trash-can" style="padding: 5px"></i>Elimina</span>
               </div>
             </a>
 
-            <a href="#" >
+            <a href="#" th:if="${customer.id}">
               <div class="d-flex align-items-center">
                 <span><i class="fa-solid fa-basket-shopping" style="padding: 5px"></i>Crea Ordine</span>
               </div>
@@ -217,10 +217,149 @@
             </div>
 
           </div>
-
-
         </form>
-        <div class="d-flex">
+
+        <form th:unless="${customer.id}" th:action="@{/newCustomer}" method="POST" th:object="${customer}">
+          <div class="d-flex" id="menu">
+
+            <a href="/customers">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-reply" style="padding: 5px"></i></span>
+              </div>
+            </a>
+
+            <a href="/formNewCustomer">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-plus" style="padding: 5px"></i>Nuovo</span>
+              </div>
+            </a>
+
+            <a th:href="@{'/eliminaCustomer/' + ${customer.id}}" th:if="${customer.id}">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-trash-can" style="padding: 5px"></i>Elimina</span>
+              </div>
+            </a>
+
+            <a href="#" th:if="${customer.id}">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-basket-shopping" style="padding: 5px"></i>Crea Ordine</span>
+              </div>
+            </a>
+
+            <button type="submit" style="border: transparent; background-color: transparent; padding: 0px;">
+              <div class="d-flex align-items-center">
+              <span><i class="fa-solid fa-floppy-disk" style="padding: 5px"></i>Salva</span>
+              </div>
+            </button>
+
+          </div>
+          <div th:if="${#fields.hasGlobalErrors()}">
+
+            <div class="alert alert-danger" role="alert" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+              A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you
+              like.
+            </div>
+          </div>
+          <div class="d-flex">
+            
+            <div class="d-flex flex-column" id="ContactInformation">
+              <h4 style="padding: 10px;">Informazioni Generali</h4>
+              
+
+              <input type="hidden" class="form-control" name="id" id="customerId" th:value="${customer.id}">
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Ragione Sociale</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('ragioneSociale')}" type="text" class="form-control" th:value="${customer.ragioneSociale}" name="ragioneSociale" placeholder="">
+                  <input th:if="${#fields.hasErrors('ragioneSociale')}" type="text" class="form-control is-invalid" th:value="${customer.ragioneSociale}" name="ragioneSociale" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('ragioneSociale')}" th:errors="*{ragioneSociale}"></div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Partita IVA</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('pIva')}" type="text" class="form-control" th:value="${customer.pIva}" name="pIva" placeholder="">
+                  <input th:if="${#fields.hasErrors('pIva')}" type="text" class="form-control is-invalid" th:value="${customer.pIva}" name="pIva" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('pIva')}" th:errors="*{pIva}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Telefono</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('telefono')}" type="text" class="form-control" th:value="${customer.telefono}" name="telefono" placeholder="">
+                  <input th:if="${#fields.hasErrors('telefono')}" type="text" class="form-control is-invalid" th:value="${customer.telefono}" name="telefono" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Email</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('email')}" type="email" class="form-control" th:value="${customer.email}" name="email" placeholder="">
+                  <input th:if="${#fields.hasErrors('email')}" type="email" class="form-control is-invalid" th:value="${customer.email}" name="email" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>FAX</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('fax')}" type="text" class="form-control" th:value="${customer.fax}" name="fax" placeholder="">
+                  <input th:if="${#fields.hasErrors('fax')}" type="text" class="form-control is-invalid"  th:value="${customer.fax}" name="fax" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('fax')}" th:errors="*{fax}"></div>
+                </div>
+              </div>
+
+            </div>
+            <div class="d-flex flex-column" id="ContactInformation">
+              <h4 style="padding: 10px;">Indirizzo di fatturazione</h4>
+
+              <input type="hidden" class="form-control" name="id" id="customerId" th:value="${customer.id}">
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Indirizzo</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('indirizzo')}" type="text" class="form-control" th:value="${customer.indirizzo}" name="indirizzo" placeholder="">
+                  <input th:if="${#fields.hasErrors('indirizzo')}" type="text" class="form-control is-invalid" th:value="${customer.indirizzo}" name="indirizzo" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('indirizzo')}" th:errors="*{indirizzo}">
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Numero civico</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('numeroCivico')}" type="text" class="form-control" th:value="${customer.numeroCivico}" name="numeroCivico" placeholder="">
+                  <input th:if="${#fields.hasErrors('numeroCivico')}" type="text" class="form-control is-invalid" th:value="${customer.numeroCivico}" name="numeroCivico" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('numeroCivico')}" th:errors="*{numeroCivico}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>CAP</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('cap')}" type="text" class="form-control" th:value="${customer.cap}" name="cap" placeholder="">
+                  <input th:if="${#fields.hasErrors('cap')}" type="text" class="form-control is-invalid" th:value="${customer.cap}" name="cap" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('cap')}" th:errors="*{cap}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Nazione</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('nazione')}" type="text" class="form-control" th:value="${customer.nazione}" name="nazione" placeholder="">
+                  <input th:if="${#fields.hasErrors('nazione')}" type="text" class="form-control is-invalid" th:value="${customer.nazione}" name="nazione" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('nazione')}" th:errors="*{nazione}"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      
+        <div class="d-flex" th:if="${customer.id}">
           <div class="table-responsive">
             <table class="table">
               <thead>
