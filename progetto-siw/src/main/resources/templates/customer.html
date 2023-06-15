@@ -226,21 +226,17 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Ragione Sociale</th>
-                  <th scope="col">P. IVA</th>
-                  <th scope="col">Nazione</th>
-                  <th scope="col">Indirizzo</th>
-                  <th scope="col">Cap</th>
+                  <th scope="col">Id</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Data Creazione</th>
                 </tr>
               </thead>
               <tbody>
-                <tr th:each="customer : ${customers}">
-                  <th scope="row"><a th:text="${customer.ragioneSociale}" th:href="@{'/customer/' + ${customer.id}}"
+                <tr th:each="order : ${orders}">
+                  <th scope="row"><a th:text="${order.id}" th:href="@{'/order/' + ${order.id}}"
                       class="stretched-link"></a></th>
-                  <td th:text="${customer.pIva}">0555011</td>
-                  <td th:text="${customer.nazione}">Italia</td>
-                  <td th:text="${customer.indirizzo}">Via Roma</td>
-                  <td th:text="${customer.cap}">00152</td>
+                  <td th:text="${order.nome}">Nome</td>
+                  <td th:text="${order.createdOn}">26/05/2023</td>
                 </tr>
               </tbody>
             </table>
