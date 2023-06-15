@@ -10,11 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import it.uniroma3.siw.controller.validator.CustomerValidator;
 import it.uniroma3.siw.model.Customer;
-import it.uniroma3.siw.repository.CustomerRepository;
 import it.uniroma3.siw.service.CustomerService;
 
 @Controller
@@ -23,12 +20,6 @@ public class CustomerController{
 
     @Autowired
     CustomerService customerService;
-
-    @Autowired 
-	private CustomerValidator customerValidator;
-
-    @Autowired
-    private CustomerRepository customerRepository;
 
     @GetMapping(value = "/customers")
     private String getCustomers(Model model){
