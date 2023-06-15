@@ -77,6 +77,7 @@
                 <tr>
                   <th scope="col">Id</th>
                   <th scope="col">Nome</th>
+                  <th scope="col">Cliente</th>
                   <th scope="col">Data Creazione</th>
                 </tr>
               </thead>
@@ -85,6 +86,7 @@
                   <th scope="row"><a th:text="${order.id}" th:href="@{'/order/' + ${order.id}}"
                       class="stretched-link"></a></th>
                   <td th:text="${order.nome}">Nome</td>
+                  <td th:text="${order.customer.ragioneSociale}">Mario Rossi S.P.A</td>
                   <td th:text="${order.createdOn}">26/05/2023</td>
                 </tr>
               </tbody>

@@ -1,5 +1,7 @@
 package it.uniroma3.siw.service;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import it.uniroma3.siw.controller.validator.OrderValidator;
+import it.uniroma3.siw.model.Customer;
 import it.uniroma3.siw.model.Order;
 import it.uniroma3.siw.repository.OrderRepository;
 
@@ -39,6 +42,22 @@ public class OrderService {
         }
         this.orderRepository.save(order); 
         return order;
+    }
+
+    public Order updateOrder(Order order,BindingResult bindingResult) {
+        this.orderValidator.validate(order, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return order;
+        }
+        this.orderRepository.save(order); 
+        return order;
+    }
+
+    public void deleteOrder(Long orderId) {
+        Optional<Order> order = this.orderRepository.findById(orderId);
+        if(order.isPresent()){
+            this.orderRepository.delete(order.get());
+        }
     }
 
     

@@ -39,7 +39,7 @@ public class Order {
 	private LocalDate createdOn;
 
 	@ManyToOne
-	@NotNull(message = "Il cliente non può essere nullo")
+	@NotNull
 	private Customer customer;
 
 	@ManyToOne

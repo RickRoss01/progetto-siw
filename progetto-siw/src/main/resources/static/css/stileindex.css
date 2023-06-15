@@ -92,3 +92,37 @@ tr:hover{
 #menu span:hover {
   background-color: #e9ecef;
 }
+
+.container-table{
+  border: 1px solid grey;
+  width: 90%;
+}
+
+.main-content #menu a,
+  .main-content #menu button {
+    font-size: 20px;
+    
+  }
+
+
+  .col-md-10 {
+    padding: 0;
+  }
+
+  #ContactInformation {
+    border: 1px solid grey;
+    margin: 30px 10px;
+    width: 100%;
+  }
+
+  #ContactElement span {
+    min-width: 40%;
+    max-width: 50%;
+  }
+
+
+
+  #ContactElement {
+    min-width: 600px;
+    margin: 20px;
+  }
