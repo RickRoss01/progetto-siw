@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,15 +22,13 @@ public class Customer {
 	private Long id;
 	@NotBlank
 	private String ragioneSociale;
-	@NotBlank
 	private String nazione;
 	@NotBlank
 	private String pIva;
-	@NotBlank
 	private String indirizzo;
 	private Integer fax;
 	private String cap;
-	private int telefono;
+	private Integer telefono;
 	private String email;
 	private Integer numeroCivico;
 
@@ -39,7 +38,7 @@ public class Customer {
 	@OneToMany(mappedBy = "customer")
 	private List<Contact> contacts;
 
-	@OneToMany(mappedBy = "customer")
+	@OneToMany(mappedBy = "customer",cascade = CascadeType.REMOVE)
 	private List<Order> orders;
 	
 	
@@ -128,11 +127,11 @@ public class Customer {
 		this.cap = cap;
 	}
 	
-	public int getTelefono() {
+	public Integer getTelefono() {
 		return telefono;
 	}
 	
-	public void setTelefono(int telefono) {
+	public void setTelefono(Integer telefono) {
 		this.telefono = telefono;
 	}
 

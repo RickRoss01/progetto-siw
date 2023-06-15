@@ -1,5 +1,7 @@
 package it.uniroma3.siw.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +35,22 @@ public class CustomerService {
 
     public Customer updateCustomer(Customer customer,BindingResult bindingResult) {
         this.customerValidator.validateExistingCustomer(customer, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return customer;
+        }
+        this.customerRepository.save(customer); 
+        return customer;
+    }
+
+    public void deleteCustomer(Long customerId){
+        Optional<Customer> customer = this.customerRepository.findById(customerId);
+        if (customer.isPresent()) {
+            customerRepository.delete(customer.get());
+        }
+    }
+
+    public Customer newCustomer(Customer customer, BindingResult bindingResult){
+        this.customerValidator.validate(customer, bindingResult);
         if (bindingResult.hasErrors()) {
             return customer;
         }
