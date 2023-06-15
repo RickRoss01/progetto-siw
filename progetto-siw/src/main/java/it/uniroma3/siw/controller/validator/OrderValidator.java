@@ -2,6 +2,7 @@ package it.uniroma3.siw.controller.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -18,15 +19,13 @@ public class OrderValidator implements Validator {
 
     @Override
 	public void validate(Object o, Errors errors) {
-		Order order = (Order)o;
-		if (order.getId()!=null 
-				&& this.orderRepository.existsById(order.getId())) {
-			errors.reject("order.duplicate");
-		}
+		
 	}
 	
 	@Override
 	public boolean supports(Class<?> aClass) {
 		return Order.class.equals(aClass);
 	}
+
+	
 }

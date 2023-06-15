@@ -358,8 +358,9 @@
           </div>
         </form>
       
-        <div class="d-flex" th:if="${customer.id}">
-          <div class="table-responsive">
+        <div class="d-flex " th:if="${customer.id}">
+          <div class="table-responsive container-table">
+            <h4 style="padding: 10px;">Ordini</h4>
             <table class="table">
               <thead>
                 <tr>
@@ -378,25 +379,20 @@
               </tbody>
             </table>
           </div>
-          <div class="table-responsive">
+          <div class="table-responsive container-table">
+            <h4 style="padding: 10px;">Contatti</h4>
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Ragione Sociale</th>
-                  <th scope="col">P. IVA</th>
-                  <th scope="col">Nazione</th>
-                  <th scope="col">Indirizzo</th>
-                  <th scope="col">Cap</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Cognome</th>
                 </tr>
               </thead>
               <tbody>
-                <tr th:each="customer : ${customers}">
-                  <th scope="row"><a th:text="${customer.ragioneSociale}" th:href="@{'/customer/' + ${customer.id}}"
-                      class="stretched-link"></a></th>
-                  <td th:text="${customer.pIva}">0555011</td>
-                  <td th:text="${customer.nazione}">Italia</td>
-                  <td th:text="${customer.indirizzo}">Via Roma</td>
-                  <td th:text="${customer.cap}">00152</td>
+                <tr th:each="contact : ${contacts}">
+                  <th scope="row"><a th:text="${contact.nome}" th:href="@{'/contact/' + ${contact.id}}"
+                      class="stretched-link"></a>Mario</th>
+                  <td th:text="${contact.cognome}">Rossi</td>
                 </tr>
               </tbody>
             </table>
