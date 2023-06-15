@@ -21,12 +21,12 @@ public class OrderValidator implements Validator {
 		Order order = (Order)o;
 		if (order.getId()!=null 
 				&& this.orderRepository.existsById(order.getId())) {
-			errors.reject("customer.duplicate");
+			errors.reject("order.duplicate");
 		}
 	}
 	
 	@Override
 	public boolean supports(Class<?> aClass) {
-		return Customer.class.equals(aClass);
+		return Order.class.equals(aClass);
 	}
 }
