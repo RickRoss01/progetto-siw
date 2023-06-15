@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 
 import it.uniroma3.siw.controller.validator.CustomerValidator;
 import it.uniroma3.siw.model.Customer;
+import it.uniroma3.siw.model.Order;
 import it.uniroma3.siw.repository.CustomerRepository;
 
 
@@ -60,6 +61,10 @@ public class CustomerService {
         }
         this.customerRepository.save(customer); 
         return customer;
+    }
+
+    public List<Customer> getAllCustomersNotInOrder(Order order) {
+        return this.customerRepository.getAllCustomersNotInOrder(order.getId());
     }
 
 

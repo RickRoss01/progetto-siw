@@ -1,6 +1,7 @@
 package it.uniroma3.siw.model;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import io.micrometer.core.lang.NonNull;
 
 
 @Entity
@@ -26,12 +34,16 @@ public class Order {
 	private String nome;
 
 	@CreationTimestamp
-	private Instant createdOn;
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	private LocalDate createdOn;
 
 	@ManyToOne
+	@NotNull(message = "Il cliente non può essere nullo")
 	private Customer customer;
 
 	@ManyToOne
+	
 	private PriceList priceList;
 
 	@OneToMany(cascade = CascadeType.REMOVE)
@@ -56,10 +68,10 @@ public class Order {
 
 	
 
-	public Instant getCreatedOn() {
+	public LocalDate getCreatedOn() {
 		return createdOn;
 	}
-	public void setCreatedOn(Instant createdOn) {
+	public void setCreatedOn(LocalDate createdOn) {
 		this.createdOn = createdOn;
 	}
 	public Customer getCustomer() {

@@ -23,4 +23,9 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
             "WHERE p_iva = :pIva " + 
             "AND id <> :customerId", nativeQuery=true)
     int countOtherCustomersWithSamePIva(@Param("customerId") Long id,@Param("pIva") String getpIva);
+
+    @Query(value = "SELECT * " + 
+            "FROM customer " + 
+            "where id not in (SELECT customer_id from orders where id = :orderId) ", nativeQuery=true)
+    public List<Customer> getAllCustomersNotInOrder(@Param("orderId") Long id);
 }

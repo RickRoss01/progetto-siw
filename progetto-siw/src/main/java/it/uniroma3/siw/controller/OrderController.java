@@ -33,8 +33,10 @@ public class OrderController{
 
     @GetMapping(value = "/order/{orderId}")
     private String getOrder(@PathVariable("orderId") Long orderId, Model model){
-        model.addAttribute("order",this.orderService.getOrder(orderId));
+        Order order = this.orderService.getOrder(orderId);
+        model.addAttribute("order",order);
         model.addAttribute("customer", this.orderService.getOrder(orderId).getCustomer());
+        model.addAttribute("customers", customerService.getAllCustomersNotInOrder(order));
         return "order.html";
     }
 
@@ -49,6 +51,7 @@ public class OrderController{
     private String newOrder(@Valid @ModelAttribute("order") Order order, BindingResult bindingResult, Model model){
         Order newOrder = this.orderService.newOrder(order, bindingResult);
         model.addAttribute("order", newOrder);
+        model.addAttribute("customers", customerService.getAllCustomers());
         return "order.html";
     }
 
