@@ -1,10 +1,14 @@
 package it.uniroma3.siw.service;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
+import it.uniroma3.siw.controller.validator.OrderValidator;
 import it.uniroma3.siw.model.Order;
 import it.uniroma3.siw.repository.OrderRepository;
 
@@ -15,6 +19,9 @@ public class OrderService {
     @Autowired
     OrderRepository orderRepository;
 
+    @Autowired
+    private OrderValidator orderValidator;
+
 
     public Object getAllOrdersBy50(Integer page) {
         Pageable pageable = PageRequest.of(page-1, 6);
@@ -24,5 +31,16 @@ public class OrderService {
     public Order getOrder(Long id){
         return this.orderRepository.findById(id).get();
     }
+
+    public Order newOrder(@Valid Order order, BindingResult bindingResult) {
+        this.orderValidator.validate(order, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return order;
+        }
+        this.orderRepository.save(order); 
+        return order;
+    }
+
+    
 
 }
