@@ -26,9 +26,10 @@ public class CustomerService {
         return this.customerRepository.findAllCustomers(pageable);
     }
 
-    public Customer getCusomer(Long id){
+    public Customer getCustomer(Long id){
         return this.customerRepository.findById(id).get();
     }
+
 
     public Customer updateCustomer(Customer customer,BindingResult bindingResult) {
         this.customerValidator.validateExistingCustomer(customer, bindingResult);

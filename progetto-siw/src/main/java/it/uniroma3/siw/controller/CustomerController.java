@@ -30,7 +30,9 @@ public class CustomerController{
 
     @GetMapping(value = "/customer/{customerId}")
     private String getCustomer(@PathVariable("customerId") Long customerId, Model model){
-        model.addAttribute("customer",this.customerService.getCusomer(customerId));
+        model.addAttribute("customer",this.customerService.getCustomer(customerId));
+        model.addAttribute("orders", this.customerService.getCustomer(customerId).getOrders());
+        model.addAttribute("contacts", this.customerService.getCustomer(customerId).getContacts());
         return "customer.html";
     }
 
