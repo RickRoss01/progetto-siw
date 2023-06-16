@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Vertical Sitemap using Bootstrap</title>
+  <title>Listino</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Bootstrap CSS -->
@@ -62,22 +62,22 @@
       </div>
 
       <div class="col-md-10 main-content">
-        <form th:action="@{/updateOrder}" method="POST" th:object="${order}" th:if="${order.id}">
+        <form th:action="@{/updatePriceList}" method="POST" th:object="${priceList}" th:if="${priceList.id}">
           <div class="d-flex" id="menu">
 
-            <a href="/orders">
+            <a href="/priceLists">
               <div class="d-flex align-items-center">
                 <span><i class="fa-solid fa-reply" style="padding: 5px"></i></span>
               </div>
             </a>
 
-            <a href="/formNewOrder">
+            <a href="/formNewPriceList">
               <div class="d-flex align-items-center">
-              <span><i class="fa-solid fa-basket-shopping" style="padding: 5px"></i>Crea Ordine</span>
+              <span><i class="fa-solid fa-plus" style="padding: 5px"></i>Nuovo Listino</span>
               </div>
             </a>
 
-            <a th:href="@{'/deleteOrder/' + ${order.id}}">
+            <a th:href="@{'/deletePriceList/' + ${priceList.id}}">
               <div class="d-flex align-items-center">
                 <span><i class="fa-solid fa-trash-can" style="padding: 5px"></i>Elimina</span>
               </div>
@@ -89,11 +89,6 @@
               </div>
             </button>
 
-            <a th:href="@{'/createOrderLine/' + ${order.id}}" th:if="${order.priceList}">
-              <div class="d-flex align-items-center">
-                <span><i class="fa-solid fa-bars" style="padding: 5px"></i>Crea Linea Ordine</span>
-              </div>
-            </a>
   
           </div>
           <div th:if="${#fields.hasGlobalErrors()}">
@@ -108,41 +103,21 @@
               <h4 style="padding: 10px;">Informazioni Generali</h4>
               
               <div class="d-flex align-items-center mb-3" id="ContactElement">
-                <span>Id Ordine</span>
+                <span>Id Listino</span>
                 <div class="d-flex flex-column flex-grow-1">
-                  <input type="text" class="form-control" th:value="${order.id}" name="id" placeholder="" readonly>
+                  <input type="text" class="form-control" th:value="${priceList.id}" name="id" placeholder="" readonly>
                 </div>
               </div>
               <div class="d-flex align-items-center mb-3" id="ContactElement">
-                <span>Nome</span>
+                <span>Nome Listino</span>
                 <div class="d-flex flex-column flex-grow-1">
-                  <input type="text" class="form-control" th:value="${order.nome}" name="nome" placeholder="">
+                  <input type="text" class="form-control" th:value="${priceList.nome}" name="nome" placeholder="">
                 </div>
               </div>
               <div class="d-flex align-items-center mb-3" id="ContactElement">
                 <span>Data creazione</span>
                 <div class="d-flex flex-column flex-grow-1">
-                  <input type="text" class="form-control" th:value="${order.createdOn}" name="createdOn" placeholder="" readonly> 
-                </div>
-              </div>
-              <div class="d-flex align-items-center mb-3" id="ContactElement">
-                <span>Cliente</span>
-                <div class="d-flex flex-column flex-grow-1">
-                    <select class="form-select" name="customer" >
-                      <option th:value ="${order.customer.id}" th:text="${order.customer.ragioneSociale}" selected></option>
-                      <option th:each="customer, customerStat : ${customers}" th:text="${customer.ragioneSociale}" th:value="${customer.id}" >Christopher Nolan</option>
-                    </select>
-                </div>
-              </div>
-              <div class="d-flex align-items-center mb-3" id="ContactElement">
-                <span>Listino Prezzi</span>
-                <div class="d-flex flex-column flex-grow-1">
-                    <select class="form-select" name="priceList" >
-                      <option th:if="${order.priceList}" value ="" ></option>
-                      <option th:if="${order.priceList}" th:value ="${order.priceList.id}" th:text="${order.priceList.nome}" selected></option>
-                      <option th:unless="${order.priceList}" value =""  selected></option>
-                      <option th:each="priceList, customerStat : ${priceLists}" th:text="${priceList.nome}" th:value="${priceList.id}" >Listino Estivo 2023</option>
-                    </select>
+                  <input type="text" class="form-control" th:value="${priceList.createdOn}" name="createdOn" placeholder="" readonly> 
                 </div>
               </div>
 
@@ -152,18 +127,18 @@
 
         </form>
 
-        <form th:action="@{/newOrder}" method="POST" th:object="${order}" th:unless="${order.id}">
+        <form th:action="@{/newPriceList}" method="POST" th:object="${priceList}" th:unless="${priceList.id}">
           <div class="d-flex" id="menu">
 
-            <a href="/orders">
+            <a href="/priceLists">
               <div class="d-flex align-items-center">
                 <span><i class="fa-solid fa-reply" style="padding: 5px"></i></span>
               </div>
             </a>
 
-            <a href="/formNewOrder">
+            <a href="/formNewPriceList">
               <div class="d-flex align-items-center">
-              <span><i class="fa-solid fa-basket-shopping" style="padding: 5px"></i>Crea Ordine</span>
+              <span><i class="fa-solid fa-plus" style="padding: 5px"></i>Nuovo Listino</span>
               </div>
             </a>
 
@@ -186,13 +161,13 @@
               <h4 style="padding: 10px;">Informazioni Generali</h4>
               
               <div class="d-flex align-items-center mb-3" id="ContactElement">
-                <span>Id Ordine</span>
+                <span>Id Listino</span>
                 <div class="d-flex flex-column flex-grow-1">
-                  <input type="text" class="form-control" th:value="${order.id}" name="id" placeholder="" readonly>
+                  <input type="text" class="form-control" th:value="${priceList.id}" name="id" placeholder="" readonly>
                 </div>
               </div>
               <div class="d-flex align-items-center mb-3" id="ContactElement">
-                <span>Nome</span>
+                <span>Nome Listino</span>
                 <div class="d-flex flex-column flex-grow-1">
                   <input th:if="${!#fields.hasErrors('nome')}" type="text" class="form-control" th:value="${nome}" name="nome" placeholder="">
                   <input th:if="${#fields.hasErrors('nome')}" type="text" class="form-control is-invalid" th:value="${nome}" name="nome" placeholder="">
@@ -202,36 +177,10 @@
               <div class="d-flex align-items-center mb-3" id="ContactElement">
                 <span>Data creazione</span>
                 <div class="d-flex flex-column flex-grow-1">
-                  <input type="text" class="form-control" th:value="${order.createdOn}" name="createdOn" placeholder="" readonly>
+                  <input type="text" class="form-control" th:value="${priceList.createdOn}" name="createdOn" placeholder="" readonly>
                 </div>
-              </div>
-              <div class="d-flex align-items-center mb-3" id="ContactElement">
-                <span>Cliente</span>
-                <div class="d-flex flex-column flex-grow-1">
-                    <select th:if="${!#fields.hasErrors('customer')}" class="form-select" name="customer" >
-                      <option value ="" selected></option>
-                      <option th:each="customer : ${customers}" th:text="${customer.ragioneSociale}" th:value="${customer.id}" >Christopher Nolan</option>
-                    </select>
-                    <select th:unless="${!#fields.hasErrors('customer')}" class="form-select is-invalid" name="customer" >
-                      <option value ="" selected></option>
-                      <option th:each="customer : ${customers}" th:text="${customer.ragioneSociale}" th:value="${customer.id}" >Christopher Nolan</option>
-                    </select>
-                    <h1 class="invalid-feedback" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></h1>
-                    
-                </div>
-                
               </div>
               
-              <div class="d-flex align-items-center mb-3" id="ContactElement">
-                <span>Listino Prezzi</span>
-                <div class="d-flex flex-column flex-grow-1">
-                    <select class="form-select" name="priceList" >
-                      <option value ="" ></option>
-                      
-                      <option th:each="priceList, customerStat : ${priceLists}" th:text="${priceList.nome}" th:value="${priceList.id}" >Listino Estivo 2023</option>
-                    </select>
-                </div>
-              </div>
 
             </div>
           </div>
@@ -239,22 +188,20 @@
 
         </form>
         <div class="container-fluid container-table mx-auto p-2" >
-          <h4>Linee Ordine</h4>
+          <h4>Prodotti Listino</h4>
           <div class="table-responsive" >
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Id</th>
                   <th scope="col">Prodotto</th>
-                  <th scope="col">Quantità</th>
+                  <th scope="col">Costo</th>
                 </tr>
               </thead>
               <tbody>
-                <tr th:each="orderLine : ${order.orderLines}">
-                  <th scope="row"><a th:text="${orderLine.id}" th:href="@{'/orderLine/' + ${order.id}}"
+                <tr th:each="priceListItem : ${priceList.priceListItems}">
+                  <th scope="row"><a th:text="${priceListItem.product.name}" th:href="@{'/priceListItem/' + ${priceListItem.product.id}}"
                       class="stretched-link"></a></th>
-                  <td th:text="${orderLine.priceListItem}">Macchina</td>
-                  <td th:text="${orderLine.quantita}">2</td>
+                  <td th:text="${priceListItem.costo}">5</td>
                 </tr>
               </tbody>
             </table>

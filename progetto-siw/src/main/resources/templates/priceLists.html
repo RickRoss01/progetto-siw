@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Vertical Sitemap using Bootstrap</title>
+  <title>Listini</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Bootstrap CSS -->
@@ -63,51 +63,33 @@
       <div class="col-md-10 main-content">
         
           <div class="d-flex" id="menu">
-            <a href="/formNewCustomer">
+            <a href="/formNewPriceList">
               <div class="d-flex align-items-center">
-              <span><i class="fa-solid fa-plus" style="padding: 5px"></i>Nuovo</span>
+              <span><i class="fa-solid fa-plus" style="padding: 5px"></i>Crea Listino</span>
               </div>
             </a>
 
-            <a href="#">
-              <div class="d-flex align-items-center">
-              <span><i class="fa-solid fa-basket-shopping" style="padding: 5px"></i>Crea Ordine</span>
-              </div>
-            </a>
-
-            
-
-            
-              <div class="d-flex align-items-center">
-                <span style="padding: 5px; background-color: transparent;">Seleziona vista</span><select class="form-select" aria-label="Default select example">
-                  <option selected>Tutti i clienti</option>
-                  <option value="1">Miei clienti</option>
-                </select>
-              </div>
 
           </div>
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Ragione Sociale</th>
-                <th scope="col">Partita Iva</th>
-                <th scope="col">Nazione</th>
-                <th scope="col">Indirizzo</th>
-                <th scope="col">Cap</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each="customer : ${customers}">
-                <th scope="row"><a th:text="${customer.ragioneSociale}" th:href="@{'/customer/' + ${customer.id}}" class="stretched-link"></a></th>
-                  <td th:text="${customer.pIva}">0555011</td>
-                  <td th:text="${customer.nazione}">Italia</td>
-                  <td th:text="${customer.indirizzo}">Via Roma</td>
-                  <td th:text="${customer.cap}">00152</td>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Data Creazione</th>
                 </tr>
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                <tr th:each="priceList : ${priceLists}">
+                  <th scope="row"><a th:text="${priceList.id}" th:href="@{'/priceList/' + ${priceList.id}}"
+                      class="stretched-link"></a></th>
+                  <td th:text="${priceList.nome}">Listino estivo</td>
+                  <td th:if="${priceList.createdOn}" th:text="${priceList.createdOn}" >26/05/2023</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
       </div>
     </div>
   </div>

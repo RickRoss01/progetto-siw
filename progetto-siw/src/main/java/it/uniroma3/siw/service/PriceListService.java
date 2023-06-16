@@ -11,11 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
-import it.uniroma3.siw.controller.validator.OrderValidator;
-import it.uniroma3.siw.model.Customer;
+import it.uniroma3.siw.controller.validator.PriceListValidator;
 import it.uniroma3.siw.model.Order;
 import it.uniroma3.siw.model.PriceList;
-import it.uniroma3.siw.repository.OrderRepository;
 import it.uniroma3.siw.repository.PriceListRepository;
 
 
@@ -25,9 +23,12 @@ public class PriceListService {
     @Autowired
     PriceListRepository priceListRepository;
 
+    @Autowired
+    PriceListValidator priceListValidator;
 
 
-    public Object getAllPriceListBy50(Integer page) {
+
+    public Object getAllPriceListsBy50(Integer page) {
         Pageable pageable = PageRequest.of(page-1, 6);
         return this.priceListRepository.findAllOrders(pageable);
     }
@@ -35,24 +36,24 @@ public class PriceListService {
     public PriceList getPriceList(Long id){
         return this.priceListRepository.findById(id).get();
     }
-/* 
+
     public PriceList newPriceList(@Valid PriceList priceList, BindingResult bindingResult) {
         this.priceListValidator.validate(priceList, bindingResult);
         if (bindingResult.hasErrors()) {
             return priceList;
         }
-        this.orderRepository.save(priceList); 
+        this.priceListRepository.save(priceList); 
         return priceList;
     }
 
-    public PriceList updatePriceList(Order order,BindingResult bindingResult) {
-        this.orderValidator.validate(order, bindingResult);
+    public PriceList updatePriceList(PriceList priceList,BindingResult bindingResult) {
+        this.priceListValidator.validateExistingPriceList(priceList, bindingResult);
         if (bindingResult.hasErrors()) {
-            return order;
+            return priceList;
         }
-        this.orderRepository.save(order); 
-        return order;
-    }*/
+        this.priceListRepository.save(priceList); 
+        return priceList;
+    }
 
     public void deletePriceList(Long orderId) {
         Optional<PriceList> priceList = this.priceListRepository.findById(orderId);
