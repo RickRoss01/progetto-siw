@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 @Entity
 public class PriceList {
@@ -18,6 +24,11 @@ public class PriceList {
 	private Long id;
 	private String nome;
 
+	@CreationTimestamp
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	private LocalDate createdOn;
+	
 	@OneToMany
 	@JoinColumn(name = "priceList_id")
 	private List<PriceListItem> priceListItems;
@@ -44,7 +55,13 @@ public class PriceList {
 	public void setPriceListItems(List<PriceListItem> priceListItems) {
 		this.priceListItems = priceListItems;
 	}
+	public LocalDate getCreatedOn() {
+		return createdOn;
+	}
 
+	public void setCreatedOn(LocalDate createdOn) {
+		this.createdOn = createdOn;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -69,6 +86,8 @@ public class PriceList {
 			return false;
 		return true;
 	}
+
+	
 
 	
 	
