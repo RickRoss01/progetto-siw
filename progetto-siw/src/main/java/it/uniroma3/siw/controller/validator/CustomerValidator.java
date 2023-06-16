@@ -8,8 +8,6 @@ import org.springframework.validation.Validator;
 import it.uniroma3.siw.model.Customer;
 import it.uniroma3.siw.repository.CustomerRepository;
 
-import org.hibernate.validator.cfg.context.ConstraintDefinitionContext.ValidationCallable;
-
 
 
 @Component
