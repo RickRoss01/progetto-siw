@@ -1,7 +1,5 @@
 package it.uniroma3.siw.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.model.Order;
-import it.uniroma3.siw.model.PriceList;
 import it.uniroma3.siw.service.CustomerService;
 import it.uniroma3.siw.service.OrderService;
 import it.uniroma3.siw.service.PriceListService;
