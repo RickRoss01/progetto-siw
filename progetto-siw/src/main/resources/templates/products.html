@@ -53,7 +53,7 @@
           </li>
           <li class="list-group-item"><a href="#">Gestione</a>
             <ul class="list-group">
-              <li class="list-group-item"><a href="#">Listini</a></li>
+              <li class="list-group-item"><a href="/priceLists">Listini</a></li>
               <li class="list-group-item"><a href="/products">Prodotti</a></li>
             </ul>
           </li>
@@ -77,6 +77,7 @@
                 <tr>
                   <th scope="col">Id</th>
                   <th scope="col">Nome</th>
+                  <th scope="col">Prezzo di riferimento</th>
                 </tr>
               </thead>
               <tbody>
@@ -84,6 +85,7 @@
                   <th scope="row"><a th:text="${product.id}" th:href="@{'/product/' + ${product.id}}"
                       class="stretched-link"></a></th>
                   <td th:text="${product.nome}">Nome</td>
+                  <td th:text="${product.prezzo}">Prezzo di riferimento</td>
                 </tr>
               </tbody>
             </table>

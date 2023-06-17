@@ -2,14 +2,19 @@ package it.uniroma3.siw.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -20,6 +25,9 @@ public class UserService {
 
     @Autowired
     protected UserRepository userRepository;
+
+    @Autowired
+    protected CredentialsService credentialsService;
 
     /**
      * This method retrieves a User from the DB based on its ID.
@@ -56,4 +64,19 @@ public class UserService {
             result.add(user);
         return result;
     }
+
+    public User getCurrentUser() {
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof DefaultOAuth2User){
+			DefaultOAuth2User oauth2User = (DefaultOAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Map<String, Object> attributes = oauth2User.getAttributes();
+    
+            String username = (String) attributes.get("email");
+			Credentials credentials = credentialsService.getCredentials(username);
+			return credentials.getUser();
+		}else{
+			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			return(credentialsService.getCredentials(userDetails.getUsername()).getUser());
+		}
+		
+	}
 }

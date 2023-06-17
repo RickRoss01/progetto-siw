@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import it.uniroma3.siw.controller.validator.OrderValidator;
 import it.uniroma3.siw.model.Order;
 import it.uniroma3.siw.repository.OrderRepository;
+import it.uniroma3.siw.repository.UserRepository;
 
 
 @Service
@@ -23,6 +24,9 @@ public class OrderService {
 
     @Autowired
     private OrderValidator orderValidator;
+
+    @Autowired
+    protected UserService userService;
 
 
     public Object getAllOrdersBy50(Integer page) {
@@ -35,6 +39,7 @@ public class OrderService {
     }
 
     public Order newOrder(@Valid Order order, BindingResult bindingResult) {
+        order.setCommerciale(this.userService.getCurrentUser());
         this.orderValidator.validate(order, bindingResult);
         if (bindingResult.hasErrors()) {
             return order;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,7 +40,10 @@ public class Order {
 	private Customer customer;
 
 	@ManyToOne
-	
+	@JoinColumn(name = "commerciale_id", updatable = false)
+	private User commerciale;
+
+	@ManyToOne
 	private PriceList priceList;
 
 	@OneToMany(cascade = CascadeType.REMOVE)
@@ -88,7 +92,12 @@ public class Order {
 	public void setPriceList(PriceList priceList) {
 		this.priceList = priceList;
 	}
-
+	public User getCommerciale() {
+		return commerciale;
+	}
+	public void setCommerciale(User commerciale) {
+		this.commerciale = commerciale;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -112,6 +121,7 @@ public class Order {
 			return false;
 		return true;
 	}
+	
 
 	
 

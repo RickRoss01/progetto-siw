@@ -145,7 +145,12 @@
                     </select>
                 </div>
               </div>
-
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Commerciale</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input type="text" class="form-control" th:value="${order.commerciale.name + ' ' + order.commerciale.surname }" name="createdOn" placeholder="" readonly> 
+                </div>
+              </div>
             </div>
           </div>
 
@@ -219,7 +224,6 @@
                     <h1 class="invalid-feedback" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></h1>
                     
                 </div>
-                
               </div>
               
               <div class="d-flex align-items-center mb-3" id="ContactElement">
