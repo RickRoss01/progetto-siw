@@ -6,19 +6,23 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import it.uniroma3.siw.model.Order;
-import it.uniroma3.siw.repository.OrderRepository;
+import it.uniroma3.siw.model.Product;
+import it.uniroma3.siw.repository.ProductRepository;
 
 
 
 @Component
-public class OrderValidator implements Validator {
-   
-	@Autowired
-	private OrderRepository orderRepository;
+public class ProductValidator implements Validator {
+    @Autowired
+	private ProductRepository productRepository;
 
     @Override
 	public void validate(Object o, Errors errors) {
-		
+		Product product = (Product)o;
+		if (product.getId()!=null 
+				&& productRepository.existsById(product.getId())) {
+			errors.reject("product.duplicate");
+		}
 	}
 	
 	@Override
