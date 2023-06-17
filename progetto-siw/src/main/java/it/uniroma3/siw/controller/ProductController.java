@@ -40,22 +40,22 @@ public class ProductController{
     }
     
     @PostMapping(value = "/newProduct")
-    private String newOrder(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model){
+    private String newProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model){
         Product newProduct = this.productService.newProduct(product, bindingResult);
         model.addAttribute("product", newProduct);
         return "product.html";
     }
     
-    @PostMapping(value = "/update")
-    private String updateOrder(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model){
-        Product newProduct = this.productService.newProduct(product, bindingResult);
+    @PostMapping(value = "/updateProduct")
+    private String updateProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model){
+        Product newProduct = this.productService.updateProduct(product, bindingResult);
         model.addAttribute("product", newProduct);
         return "product.html";
     }
 
 
     @GetMapping(value = "/deleteProduct/{id}")
-    private String deleteOrder(@PathVariable("id") Long productId,Model model){
+    private String deleteProduct(@PathVariable("id") Long productId,Model model){
         this.productService.deleteProduct(productId);
         return getProducts(model);
     }

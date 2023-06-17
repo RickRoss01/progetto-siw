@@ -35,8 +35,8 @@ public class ProductService {
         return product;
     }
     
-    public Product updateOrder(Product product,BindingResult bindingResult) {
-        this.productValidator.validate(product, bindingResult);
+    public Product updateProduct(Product product,BindingResult bindingResult) {
+        this.productValidator.validateExistingProduct(product, bindingResult);
         if (bindingResult.hasErrors()) {
             return product;
         }
