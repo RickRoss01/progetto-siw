@@ -4,7 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -12,28 +15,37 @@ public class OrderLine {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private int costoTotale;
-	private int quantita;
+	private Float costoTotale;
+	@NotNull
+	private Integer quantita;
 
+	@NotNull
 	@ManyToOne
 	private PriceListItem priceListItem;
 
+	@ManyToOne
+	@NotNull
+	@JoinColumn(name="order_id")
+	private Order order;
+
+	
+	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public int getCostoTotale() {
+	public Float getCostoTotale() {
 		return costoTotale;
 	}
-	public void setCostoTotale(int costoUnitario) {
+	public void setCostoTotale(Float costoUnitario) {
 		this.costoTotale = costoUnitario;
 	}
-	public int getQuantita() {
+	public Integer getQuantita() {
 		return quantita;
 	}
-	public void setQuantita(int quantita) {
+	public void setQuantita(Integer quantita) {
 		this.quantita = quantita;
 	}
 
@@ -66,6 +78,12 @@ public class OrderLine {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	public Order getOrder() {
+		return order;
+	}
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 	
 

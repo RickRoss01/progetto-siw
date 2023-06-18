@@ -89,7 +89,7 @@
               </div>
             </button>
 
-            <a th:href="@{'/createOrderLine/' + ${order.id}}" th:if="${order.priceList}">
+            <a th:href="@{'/addOrderLine/' + ${order.id}}" th:if="${order.priceList}">
               <div class="d-flex align-items-center">
                 <span><i class="fa-solid fa-bars" style="padding: 5px"></i>Crea Linea Ordine</span>
               </div>
@@ -248,51 +248,55 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Id</th>
                   <th scope="col">Prodotto</th>
                   <th scope="col">Quantità</th>
+                  <th scope="col">Costo totale</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
-                <form th:action="@{/createPriceListItem}" method="POST" th:object="${orderLine}" th:if="${productsToAdd}">
+                <form th:action="@{/createOrderLine}" method="POST" th:object="${orderLine}" th:if="${orderLine}">
                   <div th:if="${#fields.hasGlobalErrors()}">
 
                     <div class="alert alert-danger" role="alert" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
                        <a href="#" class="alert-link"></a>
                     </div>
                   </div>
-                <tr th:if="${productsToAdd}">
+                <tr th:if="${orderLine}">
                  
                   <th scope="row">
                     <div class="d-flex flex-column flex-grow-1" style="height: 2.4rem;">
-                      <select th:if="${!#fields.hasErrors('product')}" class="form-select" name="product" style="height: 100%;">
+                      <select th:if="${!#fields.hasErrors('priceListItem')}" class="form-select" name="priceListItem" style="height: 100%;">
                         <option value ="" selected></option>
-                        <option th:each="productToAdd : ${productsToAdd}" th:text="${productToAdd.nome}" th:value="${productToAdd.id}" >Christopher Nolan</option>
+                        <option th:each="priceListItem : ${priceListItem}" th:text="${priceListItem.product.nome}" th:value="${priceListItem.id}" >Christopher Nolan</option>
                       </select>
-                      <select th:unless="${!#fields.hasErrors('product')}" class="form-select is-invalid" name="product" style="height: 100%;">
+                      <select th:unless="${!#fields.hasErrors('priceListItem')}" class="form-select is-invalid" name="priceListItem" style="height: 100%;">
                         <option value ="" selected></option>
-                        <option th:each="productToAdd : ${productsToAdd}" th:text="${productToAdd.nome}" th:value="${productToAdd.id}" >Christopher Nolan</option>
+                        <option th:each="priceListItem : ${priceListItem}" th:text="${priceListItem.product.nome}" th:value="${priceListItem.id}" >Christopher Nolan</option>
                       </select>
-                      <h1 class="invalid-feedback" th:if="${#fields.hasErrors('product')}" th:errors="*{product}"></h1>
+                      <h1 class="invalid-feedback" th:if="${#fields.hasErrors('priceListItem')}" th:errors="*{priceListItem}"></h1>
 
                     </div>
                  </th>
                   <td>
-                    <input th:if="${!#fields.hasErrors('costo')}" type="text" class="form-control" th:value="${costo}" name="costo" placeholder="">
-                    <input th:if="${#fields.hasErrors('costo')}" type="text" class="form-control is-invalid" th:value="${costo}" name="costo" placeholder="">
-                    <div class="invalid-feedback" th:if="${#fields.hasErrors('costo')}" th:errors="*{costo}"></div>
-                    <input type="hidden" class="form-control" name="priceList" id="priceList" th:value="${priceList.id}">
+                    <input th:if="${!#fields.hasErrors('quantita')}" type="text" class="form-control" th:value="${quantita}" name="quantita" placeholder="">
+                    <input th:if="${#fields.hasErrors('quantita')}" type="text" class="form-control is-invalid" th:value="${quantita}" name="quantita" placeholder="">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('quantita')}" th:errors="*{quantita}"></div>
+                    <input type="hidden" class="form-control" name="order" id="order" th:value="${order.id}">
                   </td>
+                  <td></td>
                   <td style="width: 7%;">
                   <button type="submit" class="btn btn-info">Aggiungi</button>
                 </td>
                 </tr>
               </form>
                 <tr th:each="orderLine : ${order.orderLines}">
-                  <th scope="row"><a th:text="${orderLine.id}" th:href="@{'/orderLine/' + ${order.id}}"
-                      class="stretched-link"></a></th>
-                  <td th:text="${orderLine.priceListItem}">Macchina</td>
+                  <td th:text="${orderLine.priceListItem.product.nome}">Macchina</td>
                   <td th:text="${orderLine.quantita}">2</td>
+                  <td><span th:text="${orderLine.costoTotale}"></span>&euro;</td>
+                  <td style="width: 7%;">
+                    <a th:href="'/deleteOrderLine/' + ${orderLine.id}" class="btn btn-danger">Rimuovi</a>
+                  </td>
                 </tr>
               </tbody>
             </table>

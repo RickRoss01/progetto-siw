@@ -46,8 +46,7 @@ public class Order {
 	@ManyToOne
 	private PriceList priceList;
 
-	@OneToMany(cascade = CascadeType.REMOVE)
-	@JoinColumn(name = "orders_id")
+	@OneToMany(cascade = CascadeType.REMOVE,mappedBy = "order")
 	private List<OrderLine> orderLines;
 
 	public Order() {

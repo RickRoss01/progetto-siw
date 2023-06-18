@@ -11,9 +11,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import it.uniroma3.siw.controller.validator.OrderLineValidator;
 import it.uniroma3.siw.controller.validator.PriceListItemValidator;
 import it.uniroma3.siw.controller.validator.PriceListValidator;
 import it.uniroma3.siw.model.Order;
+import it.uniroma3.siw.model.OrderLine;
 import it.uniroma3.siw.model.PriceList;
 import it.uniroma3.siw.model.PriceListItem;
 import it.uniroma3.siw.repository.OrderLineRepository;
@@ -22,13 +24,13 @@ import it.uniroma3.siw.repository.PriceListRepository;
 
 
 @Service
-public class PriceListItemService {
+public class OrderLineService {
 
     @Autowired
     PriceListItemRepository priceListItemRepository;
 
     @Autowired
-    PriceListItemValidator priceListItemValidator;
+    OrderLineValidator orderLineValidator;
 
     @Autowired
     OrderLineRepository orderLineRepository;
@@ -36,18 +38,21 @@ public class PriceListItemService {
 
 
 
-    public PriceListItem newPriceListItem(@Valid PriceListItem priceListItem, BindingResult bindingResult) {
-        this.priceListItemValidator.validate(priceListItem, bindingResult);
+    public OrderLine newOrderLine(@Valid OrderLine orderLine, BindingResult bindingResult) {
+        this.orderLineValidator.validate(orderLine, bindingResult);
         if (bindingResult.hasErrors()) {
-            return priceListItem;
+            return orderLine;
         }
-        this.priceListItemRepository.save(priceListItem); 
-        return priceListItem;
+        Float costoTotale = (float) (orderLine.getPriceListItem().getCosto()*orderLine.getQuantita());
+        orderLine.setCostoTotale(costoTotale);
+        this.orderLineRepository.save(orderLine); 
+        return orderLine;
     }
 
-    public PriceListItem getPriceListItem(Long id){
-        return this.priceListItemRepository.findById(id).get();
+    public OrderLine getOrderLine(Long orderLineId){
+        return this.orderLineRepository.findById(orderLineId).get();
     }
+
 
 
     public void deletePriceListItem(Long priceListItemId) {
@@ -57,9 +62,14 @@ public class PriceListItemService {
         }
     }
 
-    public List<PriceListItem> getAllpriceListItemFromPriceList(Long id) {
-        return this.priceListItemRepository.getAllpriceListItemFromPriceList(id);
+    public void deleteOrderLine(Long orderLineId) {
+        Optional<OrderLine> orderline = this.orderLineRepository.findById(orderLineId);
+        if(orderline.isPresent()){
+            this.orderLineRepository.delete(orderline.get());
+        }
+
     }
+
 
     
 
