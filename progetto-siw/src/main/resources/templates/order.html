@@ -254,6 +254,40 @@
                 </tr>
               </thead>
               <tbody>
+                <form th:action="@{/createPriceListItem}" method="POST" th:object="${orderLine}" th:if="${productsToAdd}">
+                  <div th:if="${#fields.hasGlobalErrors()}">
+
+                    <div class="alert alert-danger" role="alert" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+                       <a href="#" class="alert-link"></a>
+                    </div>
+                  </div>
+                <tr th:if="${productsToAdd}">
+                 
+                  <th scope="row">
+                    <div class="d-flex flex-column flex-grow-1" style="height: 2.4rem;">
+                      <select th:if="${!#fields.hasErrors('product')}" class="form-select" name="product" style="height: 100%;">
+                        <option value ="" selected></option>
+                        <option th:each="productToAdd : ${productsToAdd}" th:text="${productToAdd.nome}" th:value="${productToAdd.id}" >Christopher Nolan</option>
+                      </select>
+                      <select th:unless="${!#fields.hasErrors('product')}" class="form-select is-invalid" name="product" style="height: 100%;">
+                        <option value ="" selected></option>
+                        <option th:each="productToAdd : ${productsToAdd}" th:text="${productToAdd.nome}" th:value="${productToAdd.id}" >Christopher Nolan</option>
+                      </select>
+                      <h1 class="invalid-feedback" th:if="${#fields.hasErrors('product')}" th:errors="*{product}"></h1>
+
+                    </div>
+                 </th>
+                  <td>
+                    <input th:if="${!#fields.hasErrors('costo')}" type="text" class="form-control" th:value="${costo}" name="costo" placeholder="">
+                    <input th:if="${#fields.hasErrors('costo')}" type="text" class="form-control is-invalid" th:value="${costo}" name="costo" placeholder="">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('costo')}" th:errors="*{costo}"></div>
+                    <input type="hidden" class="form-control" name="priceList" id="priceList" th:value="${priceList.id}">
+                  </td>
+                  <td style="width: 7%;">
+                  <button type="submit" class="btn btn-info">Aggiungi</button>
+                </td>
+                </tr>
+              </form>
                 <tr th:each="orderLine : ${order.orderLines}">
                   <th scope="row"><a th:text="${orderLine.id}" th:href="@{'/orderLine/' + ${order.id}}"
                       class="stretched-link"></a></th>
