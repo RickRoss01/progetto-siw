@@ -244,7 +244,7 @@
                   <th scope="row" th:text="${priceListItem.product.nome}" th:href="@{'/priceListItem/' + ${priceListItem.product.id}}"
                       class=""></th>
                   <td th:text="${priceListItem.costo}">5</td>
-                  <td >
+                  <td style="width: 7%;">
                     <a th:href="'/deletePriceListItem/' + ${priceListItem.id}" class="btn btn-danger">Rimuovi</a>
                   </td>
                 </tr>

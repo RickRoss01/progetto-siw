@@ -22,6 +22,10 @@ public interface PriceListItemRepository extends CrudRepository<PriceListItem, L
             "AND id <> :priceListId", nativeQuery=true)
     int countOtherPriceListsWithSameName(@Param("priceListId") Long priceListId,@Param("nome") String customerName);
 
+    @Query(value = "SELECT * FROM price_list_item " + 
+            "WHERE pricelist_id = :id ", nativeQuery=true)
+    List<PriceListItem> getAllpriceListItemFromPriceList(@Param("id") Long id);
+
         public boolean existsByProductIdAndPriceListId(Long id, Long id2);
 
 }
