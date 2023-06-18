@@ -4,7 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import io.micrometer.core.lang.NonNull;
 
 
 @Entity
@@ -12,9 +18,18 @@ public class PriceListItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private int costo;
+
+	@NotNull
+	@Min(value = 0)
+	private Integer costo;
 
 	@ManyToOne
+	@NotNull
+	@JoinColumn(name="pricelist_id")
+	private PriceList priceList;
+
+	@ManyToOne
+	@NotNull
 	private Product product;
 	
 	public Long getId() {
@@ -23,10 +38,10 @@ public class PriceListItem {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public int getCosto() {
+	public Integer getCosto() {
 		return costo;
 	}
-	public void setCosto(int costo) {
+	public void setCosto(Integer costo) {
 		this.costo = costo;
 	}
 
@@ -37,7 +52,12 @@ public class PriceListItem {
 		this.product = product;
 	}
 	
-
+	public PriceList getPriceList() {
+		return priceList;
+	}
+	public void setPriceList(PriceList priceList) {
+		this.priceList = priceList;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -61,6 +81,7 @@ public class PriceListItem {
 			return false;
 		return true;
 	}
+	
 	
 	
 	
