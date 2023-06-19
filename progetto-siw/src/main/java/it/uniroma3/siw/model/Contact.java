@@ -6,7 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 
@@ -27,7 +26,7 @@ public class Contact {
 	private Integer numeroCivico;
 
 	@ManyToOne
-	@JoinColumn(name = "customer_id", updatable = false)
+	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
 	public Long getId() {

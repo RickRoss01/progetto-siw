@@ -10,39 +10,12 @@
   <link rel="stylesheet" href="/css/stileindex.css">
   <script src="https://kit.fontawesome.com/911a8faad0.js" crossorigin="anonymous"></script>
 
-  <style>
-    .col-md-10 {
-      padding: 0;
-    }
-
-    #ContactInformation {
-      border: 1px solid grey;
-      margin: 30px 10px ;
-      width: 100%;
-    }
-
-    #ContactElement span {
-      min-width: 40%;
-      max-width: 50%;
-    }
-
-
-
-    #ContactElement {
-      min-width: 600px;
-      margin: 20px;
-    }
-  </style>
 </head>
 
 <body>
   <nav class="navbar" style="background-color: #e3f2fd;">
     <div class="container-fluid">
       <a href="/" class="navbar-brand">SiwCRM</a>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-primary" type="submit">Search</button>
-      </form>
       <div class="d-flex align-items-center">
         <span
           th:if="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
@@ -62,14 +35,14 @@
         <h1>Site Map</h1>
         <ul class="list-group">
           <li class="list-group-item"><a href="/">Home</a></li>
-          <li class="list-group-item"><a href="#">Vendite</a>
+          <li class="list-group-item"><a id="section">Vendite</a>
             <ul class="list-group">
               <li class="list-group-item"><a href="/customers">Clienti</a></li>
               <li class="list-group-item"><a href="/contacts">Contatti</a></li>
               <li class="list-group-item"><a href="/orders">Ordini</a></li>
             </ul>
           </li>
-          <li class="list-group-item"><a href="#">Gestione</a>
+          <li class="list-group-item"><a id="section">Gestione</a>
             <ul class="list-group">
               <li class="list-group-item"><a href="/priceLists">Listini</a></li>
               <li class="list-group-item"><a href="/products">Prodotti</a></li>
@@ -155,21 +128,18 @@
                   <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                 </div>
               </div>
-
+              
               <div class="d-flex align-items-center mb-3" id="ContactElement" th:if = "${contact.customer}">
                 <span>Azienda</span>
                 <div class="d-flex flex-column flex-grow-1">
-                  <input th:if="${!#fields.hasErrors('customer')}" type="text" class="form-control" th:value="${contact.customer.ragioneSociale}" name="customer" placeholder="" readonly>
-                  <input th:if="${#fields.hasErrors('customer')}" type="text" class="form-control is-invalid" th:value="${contact.customer.ragioneSociale}" name="customer" placeholder="" readonly>
-                  <div class="invalid-feedback" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></div>
+                  <input th:if="${!#fields.hasErrors('customer')}" type="text" class="form-control" th:value="${contact.customer.ragioneSociale}" placeholder="" readonly>
+                  <input type="hidden" class="form-control" th:value="${contact.customer.id}" name="customer" placeholder="" readonly>
                 </div>
               </div>
               <div class="d-flex align-items-center mb-3" id="ContactElement" th:if = "${contact.customer}">
                 <span>Azienda - Partita Iva</span>
                 <div class="d-flex flex-column flex-grow-1">
-                  <input th:if="${!#fields.hasErrors('customer')}" type="text" class="form-control" th:value="${contact.customer.pIva}" name="customer" placeholder="" readonly>
-                  <input th:if="${#fields.hasErrors('customer')}" type="text" class="form-control is-invalid" th:value="${contact.customer.pIva}" name="customer" placeholder="" readonly>
-                  <div class="invalid-feedback" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></div>
+                  <input th:if="${!#fields.hasErrors('customer')}" type="text" class="form-control" th:value="${contact.customer.pIva}" placeholder="" readonly>
                 </div>
               </div>
 

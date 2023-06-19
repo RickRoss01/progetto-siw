@@ -1,7 +1,8 @@
 package it.uniroma3.siw.service;
 
-import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -10,12 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import it.uniroma3.siw.controller.validator.ContactValidator;
-import it.uniroma3.siw.controller.validator.CustomerValidator;
 import it.uniroma3.siw.model.Contact;
-import it.uniroma3.siw.model.Customer;
-import it.uniroma3.siw.model.Order;
 import it.uniroma3.siw.repository.ContactRepository;
-import it.uniroma3.siw.repository.CustomerRepository;
 
 
 @Service
@@ -35,9 +32,17 @@ public class ContactService {
     public Iterable<Contact> getAllContacts(){
         return this.contactRepository.findAll();
     }
+    
+    public Iterable<Contact> getAllAvailaContacts(){
+        return this.contactRepository.getAllAvailableContacts();
+    }
 
     public Contact getContact(Long id){
         return this.contactRepository.findById(id).get();
+    }
+    
+    public void save(Contact contact){
+        this.contactRepository.save(contact);
     }
 
 
@@ -66,5 +71,15 @@ public class ContactService {
         return contact;
     }
 
+    public Contact findById(Long contactId) {
+        return this.contactRepository.findById(contactId).get();
+    }
+
+    @Transactional
+    public void removeCustomer(Long contactId) {
+        Optional<Contact> contact =  this.contactRepository.findById(contactId);
+        if(contact.isPresent())
+            contact.get().setCustomer(null);
+    }
 
 }

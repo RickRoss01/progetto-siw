@@ -22,6 +22,10 @@ public interface ContactRepository extends CrudRepository<Contact, Long> {
             "WHERE cognome = :cognome AND email = :email " + 
             "AND id <> :contactId", nativeQuery=true)
     int countOtherCustomersWithSameCognomeAndEmail(@Param("contactId") Long id,@Param("cognome") String cognome, @Param("email") String email);
+
+    @Query(value = "SELECT * FROM contact " +
+                    "WHERE customer_id isnull", nativeQuery = true)
+    Iterable<Contact> getAllAvailableContacts();
 }
 
 
