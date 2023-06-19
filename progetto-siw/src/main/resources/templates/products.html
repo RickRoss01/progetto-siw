@@ -21,10 +21,6 @@
   <nav class="navbar" style="background-color: #e3f2fd;">
     <div class="container-fluid">
       <a href="/" class="navbar-brand">SiwCRM</a>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-primary" type="submit">Search</button>
-      </form>
       <div class="d-flex align-items-center">
         <span
           th:if="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
@@ -44,14 +40,14 @@
         <h1>Site Map</h1>
         <ul class="list-group">
           <li class="list-group-item"><a href="/">Home</a></li>
-          <li class="list-group-item"><a href="#">Vendite</a>
+          <li class="list-group-item"><a id="section">Vendite</a>
             <ul class="list-group">
               <li class="list-group-item"><a href="/customers">Clienti</a></li>
               <li class="list-group-item"><a href="/contacts">Contatti</a></li>
               <li class="list-group-item"><a href="/orders">Ordini</a></li>
             </ul>
           </li>
-          <li class="list-group-item"><a href="#">Gestione</a>
+          <li class="list-group-item"><a id="section">Gestione</a>
             <ul class="list-group">
               <li class="list-group-item"><a href="/priceLists">Listini</a></li>
               <li class="list-group-item"><a href="/products">Prodotti</a></li>
@@ -85,7 +81,7 @@
                   <th scope="row"><a th:text="${product.id}" th:href="@{'/product/' + ${product.id}}"
                       class="stretched-link"></a></th>
                   <td th:text="${product.nome}">Nome</td>
-                  <td th:text="${product.prezzo}">Prezzo di riferimento</td>
+                  <span><td th:text="${product.prezzo}"></span>&euro;</td>
                 </tr>
               </tbody>
             </table>

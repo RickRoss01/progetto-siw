@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import it.uniroma3.siw.controller.validator.CustomerValidator;
+import it.uniroma3.siw.model.Contact;
 import it.uniroma3.siw.model.Customer;
 import it.uniroma3.siw.model.Order;
+import it.uniroma3.siw.repository.ContactRepository;
 import it.uniroma3.siw.repository.CustomerRepository;
 
 
@@ -20,6 +22,12 @@ public class CustomerService {
 
     @Autowired
     CustomerRepository customerRepository;
+
+    @Autowired
+    ContactService contactService;
+
+    @Autowired
+    ContactRepository contactRepository;
 
     @Autowired 
 	private CustomerValidator customerValidator;
@@ -67,5 +75,16 @@ public class CustomerService {
         return this.customerRepository.getAllCustomersNotInOrder(order.getId());
     }
 
+    
+    public void addContactToCustomer(Long contactId, Long customerId) {
+        Contact contact = this.contactRepository.findById(contactId).get();
+        Customer customer = this.getCustomer(customerId);
+
+        customer.getContacts().add(contact);
+        contact.setCustomer(customer);
+
+        this.contactRepository.save(contact);
+        this.customerRepository.save(customer);
+    }
 
 }

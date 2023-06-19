@@ -13,12 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.model.Order;
 import it.uniroma3.siw.model.OrderLine;
-import it.uniroma3.siw.model.PriceList;
-import it.uniroma3.siw.model.PriceListItem;
 import it.uniroma3.siw.service.OrderLineService;
 import it.uniroma3.siw.service.OrderService;
 import it.uniroma3.siw.service.PriceListItemService;
-import it.uniroma3.siw.service.PriceListService;
 import it.uniroma3.siw.service.ProductService;
 
 @Controller

@@ -10,39 +10,12 @@
   <link rel="stylesheet" href="/css/stileindex.css">
   <script src="https://kit.fontawesome.com/911a8faad0.js" crossorigin="anonymous"></script>
 
-  <style>
-    .col-md-10 {
-      padding: 0;
-    }
-
-    #ContactInformation {
-      border: 1px solid grey;
-      margin: 30px 10px ;
-      width: 100%;
-    }
-
-    #ContactElement span {
-      min-width: 40%;
-      max-width: 50%;
-    }
-
-
-
-    #ContactElement {
-      min-width: 600px;
-      margin: 20px;
-    }
-  </style>
 </head>
 
 <body>
   <nav class="navbar" style="background-color: #e3f2fd;">
     <div class="container-fluid">
       <a href="/" class="navbar-brand">SiwCRM</a>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-primary" type="submit">Search</button>
-      </form>
       <div class="d-flex align-items-center">
         <span
           th:if="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
@@ -62,14 +35,14 @@
         <h1>Site Map</h1>
         <ul class="list-group">
           <li class="list-group-item"><a href="/">Home</a></li>
-          <li class="list-group-item"><a href="#">Vendite</a>
+          <li class="list-group-item"><a id="section">Vendite</a>
             <ul class="list-group">
               <li class="list-group-item"><a href="/customers">Clienti</a></li>
               <li class="list-group-item"><a href="/contacts">Contatti</a></li>
               <li class="list-group-item"><a href="/orders">Ordini</a></li>
             </ul>
           </li>
-          <li class="list-group-item"><a href="#">Gestione</a>
+          <li class="list-group-item"><a id="section">Gestione</a>
             <ul class="list-group">
               <li class="list-group-item"><a href="/priceLists">Listini</a></li>
               <li class="list-group-item"><a href="/products">Prodotti</a></li>
@@ -103,6 +76,12 @@
             <a href="#" th:if="${customer.id}">
               <div class="d-flex align-items-center">
                 <span><i class="fa-solid fa-basket-shopping" style="padding: 5px"></i>Crea Ordine</span>
+              </div>
+            </a>
+
+            <a th:href="@{'/addContactToCustomer/' + ${customer.id}}" th:if="${customer.id}">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-id-badge" style="padding: 5px;"></i></i>Aggiungi Contatto</span>
               </div>
             </a>
 
@@ -233,18 +212,6 @@
               </div>
             </a>
 
-            <a th:href="@{'/eliminaCustomer/' + ${customer.id}}" th:if="${customer.id}">
-              <div class="d-flex align-items-center">
-                <span><i class="fa-solid fa-trash-can" style="padding: 5px"></i>Elimina</span>
-              </div>
-            </a>
-
-            <a href="#" th:if="${customer.id}">
-              <div class="d-flex align-items-center">
-                <span><i class="fa-solid fa-basket-shopping" style="padding: 5px"></i>Crea Ordine</span>
-              </div>
-            </a>
-
             <button type="submit" style="border: transparent; background-color: transparent; padding: 0px;">
               <div class="d-flex align-items-center">
               <span><i class="fa-solid fa-floppy-disk" style="padding: 5px"></i>Salva</span>
@@ -359,7 +326,7 @@
         </form>
       
         <div class="d-flex " th:if="${customer.id}">
-          <div class="table-responsive container-table">
+          <div class="table-responsive container-table" id="tablecustomer">
             <h4 style="padding: 10px;">Ordini</h4>
             <table class="table">
               <thead>
@@ -379,20 +346,40 @@
               </tbody>
             </table>
           </div>
-          <div class="table-responsive container-table">
+          <div class="table-responsive container-table" id="tablecustomer">
             <h4 style="padding: 10px;">Contatti</h4>
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Nome</th>
-                  <th scope="col">Cognome</th>
+                  <th scope="col">Nome Completo</th>
+                  <th scope="col">Email</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
+                <form th:action="@{/addContactToCustomer}" method="POST" th:if="${contactsToAdd}">
+                  <input type="hidden" class="form-control" name="customerId" id="customerId" th:value="${customer.id}">
+                <tr th:if="${contactsToAdd}">
+                 
+                  <th scope="row">
+                    <div class="d-flex flex-column flex-grow-1" style="height: 2.4rem;">
+                      <select class="form-select" name="contactId" style="height: 100%;">
+                        <option value ="" selected></option>
+                        <option th:each="contactToAdd : ${contactsToAdd}" th:text="${contactToAdd.nome} + ' ' + ${contactToAdd.cognome}" th:value="${contactToAdd.id}" >Christopher Nolan</option>
+                      </select>
+                    </div>
+                  </th>
+                  <td style="width: 7%;">
+                    <button type="submit" class="btn btn-info">Aggiungi</button>
+                  </td>
+                </tr>
+                </form>
                 <tr th:each="contact : ${contacts}">
-                  <th scope="row"><a th:text="${contact.nome}" th:href="@{'/contact/' + ${contact.id}}"
-                      class="stretched-link"></a>Mario</th>
-                  <td th:text="${contact.cognome}">Rossi</td>
+                  <th scope="row"><a th:text="${contact.nome} + ' ' + ${contact.cognome}" th:href="@{'/contact/' + ${contact.id}}"></a></th>
+                  <td th:text="${contact.email}">Rossi</td>
+                  <td style="width: 7%;">
+                    <a th:href="'/removeContactFromCustomer/' + ${contact.id} + '/' + ${customer.id}" class="btn btn-danger">Rimuovi</a>
+                  </td>
                 </tr>
               </tbody>
             </table>

@@ -38,7 +38,7 @@ public class ContactController{
     @PostMapping(value = "/formUpdateContact")
         private String updateContact(@Valid @ModelAttribute("contact") Contact contact, BindingResult bindingResult, Model model){
             Contact contactUpdate = this.contactService.updateContact(contact,bindingResult);
-            model.addAttribute("contactUpdate", contactUpdate);
+            model.addAttribute("contactUpdate", contactUpdate); 
             return "contact.html";
     }
 

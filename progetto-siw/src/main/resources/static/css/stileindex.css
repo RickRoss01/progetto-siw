@@ -47,6 +47,7 @@ body, html {
   .sitemap .list-group-item li:last-child {
     border-bottom: none;
   }
+
   .sitemap .list-group-item li a {
     color: #004578;
     display: block;
@@ -56,6 +57,18 @@ body, html {
   .sitemap .list-group-item li a:hover {
     color: #FFFFFF;
     background-color: #004578;
+    text-decoration: none;
+  }
+
+  #section, #active{
+    color: #FFFFFF;
+    display: block;
+    background-color: #004578;
+    padding: 10px 20px;
+  }
+  #section:hover, #active:hover{
+    color: #FFFFFF;
+    pointer-events: none;
     text-decoration: none;
   }
 
@@ -94,8 +107,8 @@ tr:hover{
 }
 
 .container-table{
-  border: 1px solid grey;
   width: 90%;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
 .main-content #menu a,
@@ -109,10 +122,10 @@ tr:hover{
     padding: 0;
   }
 
-  #ContactInformation {
-    border: 1px solid grey;
+  #ContactInformation, #tablecustomer {
     margin: 30px 10px;
     width: 100%;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
   }
 
   #ContactElement span {
@@ -120,9 +133,8 @@ tr:hover{
     max-width: 50%;
   }
 
-
-
   #ContactElement {
     min-width: 600px;
     margin: 20px;
   }
+

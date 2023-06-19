@@ -79,7 +79,7 @@ public class PriceListController{
     private String addProductToPriceList(@PathVariable("priceListId") Long priceListId, Model model){
         PriceList priceList = this.priceListService.getPriceList(priceListId);
         model.addAttribute("priceList",priceList);
-        model.addAttribute("productsToAdd",this.productService.getAllProducts() );
+        model.addAttribute("productsToAdd",this.productService.getAllProducts());
         model.addAttribute("priceListItem", new PriceListItem());
         return "priceList.html";
     }

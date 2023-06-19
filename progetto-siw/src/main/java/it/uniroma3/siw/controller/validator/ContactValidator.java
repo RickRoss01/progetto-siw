@@ -8,7 +8,6 @@ import org.springframework.validation.Validator;
 import it.uniroma3.siw.model.Contact;
 import it.uniroma3.siw.model.Customer;
 import it.uniroma3.siw.repository.ContactRepository;
-import it.uniroma3.siw.repository.CustomerRepository;
 
 
 
