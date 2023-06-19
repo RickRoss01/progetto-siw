@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Vertical Sitemap using Bootstrap</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/stileindex.css">
+  <script src="https://kit.fontawesome.com/911a8faad0.js" crossorigin="anonymous"></script>
+
+  <style>
+    .col-md-10 {
+      padding: 0;
+    }
+
+    #ContactInformation {
+      border: 1px solid grey;
+      margin: 30px 10px ;
+      width: 100%;
+    }
+
+    #ContactElement span {
+      min-width: 40%;
+      max-width: 50%;
+    }
+
+
+
+    #ContactElement {
+      min-width: 600px;
+      margin: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+      <a href="/" class="navbar-brand">SiwCRM</a>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+      </form>
+      <div class="d-flex align-items-center">
+        <span
+          th:if="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
+          th:text="'Ciao, ' + ${#request.userPrincipal.principal.attributes.name}"> </span>
+        <span
+          th:unless="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
+          th:text="'Ciao, ' + ${#request.userPrincipal.principal.username}"> </span>
+        <a href="/logout" class="btn btn-outline-primary">Log Out</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 sitemap">
+        <h1>Site Map</h1>
+        <ul class="list-group">
+          <li class="list-group-item"><a href="/">Home</a></li>
+          <li class="list-group-item"><a href="#">Vendite</a>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="/customers">Clienti</a></li>
+              <li class="list-group-item"><a href="/contacts">Contatti</a></li>
+              <li class="list-group-item"><a href="/orders">Ordini</a></li>
+            </ul>
+          </li>
+          <li class="list-group-item"><a href="#">Gestione</a>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="/priceLists">Listini</a></li>
+              <li class="list-group-item"><a href="/products">Prodotti</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-10 main-content">
+        <form th:if="${contact.id}" th:action="@{/formUpdateContact}" method="POST" th:object="${contact}">
+          <div class="d-flex" id="menu">
+
+            <a href="/contacts">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-reply" style="padding: 5px"></i></span>
+              </div>
+            </a>
+
+            <a href="/formNewContact">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-plus" style="padding: 5px"></i>Nuovo</span>
+              </div>
+            </a>
+
+            <a th:href="@{'/eliminaContact/' + ${contact.id}}" th:if="${contact.id}">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-trash-can" style="padding: 5px"></i>Elimina</span>
+              </div>
+            </a>
+
+            <button type="submit" style="border: transparent; background-color: transparent; padding: 0px;">
+              <div class="d-flex align-items-center">
+              <span><i class="fa-solid fa-floppy-disk" style="padding: 5px"></i>Salva</span>
+              </div>
+            </button>
+
+          </div>
+          <div th:if="${#fields.hasGlobalErrors()}">
+
+            <div class="alert alert-danger" role="alert" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+               <a href="#" class="alert-link"></a>
+            </div>
+          </div>
+          <div class="d-flex">
+            
+            <div class="d-flex flex-column" id="ContactInformation">
+              <h4 style="padding: 10px;">Informazioni Generali</h4>
+              
+
+              <input type="hidden" class="form-control" name="id" id="contactId" th:value="${contact.id}">
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Cognome</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('cognome')}" type="text" class="form-control" th:value="${contact.cognome}" name="cognome" placeholder="">
+                  <input th:if="${#fields.hasErrors('cognome')}" type="text" class="form-control is-invalid" th:value="${contact.cognome}" name="cognome" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Nome</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('nome')}" type="text" class="form-control" th:value="${contact.nome}" name="nome" placeholder="">
+                  <input th:if="${#fields.hasErrors('nome')}" type="text" class="form-control is-invalid" th:value="${contact.nome}" name="nome" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Telefono</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('telefono')}" type="text" class="form-control" th:value="${contact.telefono}" name="telefono" placeholder="">
+                  <input th:if="${#fields.hasErrors('telefono')}" type="text" class="form-control is-invalid" th:value="${contact.telefono}" name="telefono" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Email</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('email')}" type="email" class="form-control" th:value="${contact.email}" name="email" placeholder="">
+                  <input th:if="${#fields.hasErrors('email')}" type="email" class="form-control is-invalid" th:value="${contact.email}" name="email" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement" th:if = "${contact.customer}">
+                <span>Azienda</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('customer')}" type="text" class="form-control" th:value="${contact.customer.ragioneSociale}" name="customer" placeholder="" readonly>
+                  <input th:if="${#fields.hasErrors('customer')}" type="text" class="form-control is-invalid" th:value="${contact.customer.ragioneSociale}" name="customer" placeholder="" readonly>
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-3" id="ContactElement" th:if = "${contact.customer}">
+                <span>Azienda - Partita Iva</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('customer')}" type="text" class="form-control" th:value="${contact.customer.pIva}" name="customer" placeholder="" readonly>
+                  <input th:if="${#fields.hasErrors('customer')}" type="text" class="form-control is-invalid" th:value="${contact.customer.pIva}" name="customer" placeholder="" readonly>
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></div>
+                </div>
+              </div>
+
+            </div>
+            <div class="d-flex flex-column" id="ContactInformation">
+              <h4 style="padding: 10px;">Indirizzo di fatturazione</h4>
+
+              <input type="hidden" class="form-control" name="id" id="contactId" th:value="${contact.id}">
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Indirizzo</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('indirizzo')}" type="text" class="form-control" th:value="${contact.indirizzo}" name="indirizzo" placeholder="">
+                  <input th:if="${#fields.hasErrors('indirizzo')}" type="text" class="form-control is-invalid" th:value="${contact.indirizzo}" name="indirizzo" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('indirizzo')}" th:errors="*{indirizzo}">
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Numero civico</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('numeroCivico')}" type="text" class="form-control" th:value="${contact.numeroCivico}" name="numeroCivico" placeholder="">
+                  <input th:if="${#fields.hasErrors('numeroCivico')}" type="text" class="form-control is-invalid" th:value="${contact.numeroCivico}" name="numeroCivico" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('numeroCivico')}" th:errors="*{numeroCivico}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>CAP</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('cap')}" type="text" class="form-control" th:value="${contact.cap}" name="cap" placeholder="">
+                  <input th:if="${#fields.hasErrors('cap')}" type="text" class="form-control is-invalid" th:value="${contact.cap}" name="cap" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('cap')}" th:errors="*{cap}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Nazione</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('nazione')}" type="text" class="form-control" th:value="${contact.nazione}" name="nazione" placeholder="">
+                  <input th:if="${#fields.hasErrors('nazione')}" type="text" class="form-control is-invalid" th:value="${contact.nazione}" name="nazione" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('nazione')}" th:errors="*{nazione}"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+
+        <form th:unless="${contact.id}" th:action="@{/newContact}" method="POST" th:object="${contact}">
+          <div class="d-flex" id="menu">
+
+            <a href="/contacts">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-reply" style="padding: 5px"></i></span>
+              </div>
+            </a>
+
+            <a href="/formNewContact">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-plus" style="padding: 5px"></i>Nuovo</span>
+              </div>
+            </a>
+
+            <a th:href="@{'/eliminaContact/' + ${contact.id}}" th:if="${contact.id}">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-trash-can" style="padding: 5px"></i>Elimina</span>
+              </div>
+            </a>
+
+            <button type="submit" style="border: transparent; background-color: transparent; padding: 0px;">
+              <div class="d-flex align-items-center">
+              <span><i class="fa-solid fa-floppy-disk" style="padding: 5px"></i>Salva</span>
+              </div>
+            </button>
+
+          </div>
+          <div th:if="${#fields.hasGlobalErrors()}">
+
+            <div class="alert alert-danger" role="alert" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+              A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you
+              like.
+            </div>
+          </div>
+          <div class="d-flex">
+            
+            <div class="d-flex flex-column" id="ContactInformation">
+              <h4 style="padding: 10px;">Informazioni Generali</h4>
+              
+
+              <input type="hidden" class="form-control" name="id" id="contactId" th:value="${contact.id}">
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Cognome</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('cognome')}" type="text" class="form-control" th:value="${contact.cognome}" name="cognome" placeholder="">
+                  <input th:if="${#fields.hasErrors('cognome')}" type="text" class="form-control is-invalid" th:value="${contact.cognome}" name="cognome" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Nome</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('nome')}" type="text" class="form-control" th:value="${contact.nome}" name="nome" placeholder="">
+                  <input th:if="${#fields.hasErrors('nome')}" type="text" class="form-control is-invalid" th:value="${contact.nome}" name="nome" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Telefono</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('telefono')}" type="text" class="form-control" th:value="${contact.telefono}" name="telefono" placeholder="">
+                  <input th:if="${#fields.hasErrors('telefono')}" type="text" class="form-control is-invalid" th:value="${contact.telefono}" name="telefono" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Email</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('email')}" type="email" class="form-control" th:value="${contact.email}" name="email" placeholder="">
+                  <input th:if="${#fields.hasErrors('email')}" type="email" class="form-control is-invalid" th:value="${contact.email}" name="email" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement" th:if = "${contact.customer}">
+                <span>Azienda</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('customer')}" type="text" class="form-control" th:value="${contact.customer.ragioneSociale}" name="customer" placeholder="" readonly>
+                  <input th:if="${#fields.hasErrors('customer')}" type="text" class="form-control is-invalid" th:value="${contact.customer.ragioneSociale}" name="customer" placeholder="" readonly>
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-3" id="ContactElement" th:if = "${contact.customer}">
+                <span>Azienda - Partita Iva</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('customer')}" type="text" class="form-control" th:value="${contact.customer.pIva}" name="customer" placeholder="" readonly>
+                  <input th:if="${#fields.hasErrors('customer')}" type="text" class="form-control is-invalid" th:value="${contact.customer.pIva}" name="customer" placeholder="" readonly>
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></div>
+                </div>
+              </div>
+
+            </div>
+            <div class="d-flex flex-column" id="ContactInformation">
+              <h4 style="padding: 10px;">Indirizzo di fatturazione</h4>
+
+              <input type="hidden" class="form-control" name="id" id="contactId" th:value="${contact.id}">
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Indirizzo</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('indirizzo')}" type="text" class="form-control" th:value="${contact.indirizzo}" name="indirizzo" placeholder="">
+                  <input th:if="${#fields.hasErrors('indirizzo')}" type="text" class="form-control is-invalid" th:value="${contact.indirizzo}" name="indirizzo" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('indirizzo')}" th:errors="*{indirizzo}">
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Numero civico</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('numeroCivico')}" type="text" class="form-control" th:value="${contact.numeroCivico}" name="numeroCivico" placeholder="">
+                  <input th:if="${#fields.hasErrors('numeroCivico')}" type="text" class="form-control is-invalid" th:value="${contact.numeroCivico}" name="numeroCivico" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('numeroCivico')}" th:errors="*{numeroCivico}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>CAP</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('cap')}" type="text" class="form-control" th:value="${contact.cap}" name="cap" placeholder="">
+                  <input th:if="${#fields.hasErrors('cap')}" type="text" class="form-control is-invalid" th:value="${contact.cap}" name="cap" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('cap')}" th:errors="*{cap}"></div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Nazione</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('nazione')}" type="text" class="form-control" th:value="${contact.nazione}" name="nazione" placeholder="">
+                  <input th:if="${#fields.hasErrors('nazione')}" type="text" class="form-control is-invalid" th:value="${contact.nazione}" name="nazione" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('nazione')}" th:errors="*{nazione}"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  </div>
+  </div>
+</body>
