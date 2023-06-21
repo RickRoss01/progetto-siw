@@ -35,7 +35,7 @@ public class Customer {
 	@CreationTimestamp
     private Instant createdOn;
 
-	@OneToMany(mappedBy = "customer")
+	@OneToMany(mappedBy = "customer",cascade = CascadeType.DETACH)
 	private List<Contact> contacts;
 
 	@OneToMany(mappedBy = "customer",cascade = CascadeType.REMOVE)
