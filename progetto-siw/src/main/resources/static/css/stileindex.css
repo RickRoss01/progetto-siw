@@ -4,14 +4,14 @@ body, html {
 }
 
 nav{
-  height: 5vh;
+  height: 8vh;
 }
 a:hover{
   text-decoration: none;
 }
 .sitemap {
     background-color: #F0F0F0;
-    height: 95vh;
+    height: 92vh;
     padding: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14px;
@@ -20,7 +20,7 @@ a:hover{
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
-    font-weight: 600;
+    font-weight: 500;
     color: #004578;
   }
   .sitemap .list-group {
@@ -126,7 +126,7 @@ tr:hover{
 
 
   .col-md-10 {      
-    height: 95vh; /* Imposta l'altezza desiderata */
+    height: 92vh; /* Imposta l'altezza desiderata */
     overflow-y: scroll; /* Abilita lo scorrimento verticale */
     padding: 0;
   }
