@@ -5,10 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import it.uniroma3.siw.model.PriceList;
 import it.uniroma3.siw.model.PriceListItem;
 import it.uniroma3.siw.repository.PriceListItemRepository;
-import it.uniroma3.siw.repository.PriceListRepository;
 
 
 

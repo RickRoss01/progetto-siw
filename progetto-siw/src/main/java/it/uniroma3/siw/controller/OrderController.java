@@ -81,6 +81,7 @@ public class OrderController{
     private String updateOrder(@Valid @ModelAttribute("order") Order order, BindingResult bindingResult, Model model){
         Order newOrder = this.orderService.newOrder(order, bindingResult);
         model.addAttribute("order", newOrder);
+        newOrder.setOrderLines(this.orderService.getOrder(order.getId()).getOrderLines());
         model.addAttribute("customers", customerService.getAllCustomersNotInOrder(order));
         if(order.getPriceList() == null){
             model.addAttribute("priceLists", priceListService.getAllPriceLists());

@@ -2,10 +2,9 @@
 <html lang="en">
 
 <head>
-  <title>Vertical Sitemap using Bootstrap</title>
+  <title>Invoices</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/stileindex.css">
   <script src="https://kit.fontawesome.com/911a8faad0.js" crossorigin="anonymous"></script>
@@ -41,10 +40,10 @@
         <ul class="list-group">
           <li class="list-group-item"><a id="nonactive">Vendite</a>
             <ul class="list-group">
-              <li class="list-group-item"><a href="/customers" id="active">Clienti</a></li>
-              <li class="list-group-item"><a href="/contacts">Contatti</a></li>
+              <li class="list-group-item"><a href="/customers">Clienti</a></li>
+              <li class="list-group-item"><a href="/contacts" >Contatti</a></li>
               <li class="list-group-item"><a href="/orders">Ordini</a></li>
-              <li class="list-group-item"><a href="/invoices">Fatture</a></li>
+              <li class="list-group-item"><a href="/invoices" id="active">Fatture</a></li>
             </ul>
           </li>
           <li class="list-group-item"><a id="nonactive">Gestione</a>
@@ -59,38 +58,33 @@
       <div class="col-md-10 main-content">
         
           <div class="d-flex" id="menu">
-            <a href="/formNewCustomer">
-              <div class="d-flex align-items-center">
-              <span><i class="fa-solid fa-plus" style="padding: 5px"></i>Nuovo</span>
-              </div>
-            </a>           
-
             
-              
+
 
           </div>
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Ragione Sociale</th>
-                <th scope="col">Partita Iva</th>
-                <th scope="col">Nazione</th>
-                <th scope="col">Indirizzo</th>
-                <th scope="col">Cap</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each="customer : ${customers}">
-                <th scope="row"><a th:text="${customer.ragioneSociale}" th:href="@{'/customer/' + ${customer.id}}" class="stretched-link"></a></th>
-                  <td th:text="${customer.pIva}">0555011</td>
-                  <td th:text="${customer.nazione}">Italia</td>
-                  <td th:text="${customer.indirizzo}">Via Roma</td>
-                  <td th:text="${customer.cap}">00152</td>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Totale Fatturato</th>
+                  <th scope="col">Cliente</th>
+                  <th scope="col">Ordine</th>
+                  <th scope="col">Data Fatturazione</th>
                 </tr>
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                <tr th:each="invoice : ${invoices}">
+                  <th scope="row"><a th:text="${invoice.id}" th:href="@{'/invoice/' + ${invoice.id}}"
+                      class="stretched-link"></a></th>
+                  <td th:text="${invoice.costoTot} + ' €'">500 €</td>
+                  <td th:text="${invoice.order.customer.ragioneSociale}">Mario Rossi S.P.A</td>
+                  <td th:text="${invoice.order.nome}">26/05/2023</td>
+                  <td th:text="${invoice.dataFatt}">26/05/2023</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
       </div>
     </div>
   </div>

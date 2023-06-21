@@ -27,7 +27,6 @@ public class ContactValidator implements Validator {
 	
 	public void validateExistingContact(Object o, Errors errors) {
 		Contact contact = (Contact)o;
-		Integer s = contactRepository.countByCognomeAndEmail(contact.getCognome(),contact.getEmail());
 		if (contact.getCognome()!=null && contact.getEmail()!=null
 				&& contactRepository.countOtherCustomersWithSameCognomeAndEmail(contact.getId(), contact.getCognome(),contact.getEmail()) > 0) {
 			errors.reject("customer.duplicate");

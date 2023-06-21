@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -13,8 +14,8 @@ import org.springframework.validation.BindingResult;
 import it.uniroma3.siw.controller.validator.OrderValidator;
 import it.uniroma3.siw.model.Customer;
 import it.uniroma3.siw.model.Order;
+import it.uniroma3.siw.model.OrderLine;
 import it.uniroma3.siw.repository.OrderRepository;
-import it.uniroma3.siw.repository.UserRepository;
 
 
 @Service
@@ -74,6 +75,16 @@ public class OrderService {
         order.setCustomer(customer);
         this.orderRepository.save(order); 
         return order;
+    }
+
+    public Float getCostoTotaleOrdine(Long orderId) {
+        Order order = this.getOrder(orderId);
+        List<OrderLine> orderLines = order.getOrderLines();
+        Float tot = 0f;
+        for(OrderLine orderLine : orderLines){
+            tot+=orderLine.getCostoTotale();
+        }
+        return tot;
     }
 
     

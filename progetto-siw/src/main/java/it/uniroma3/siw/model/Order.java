@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -33,6 +34,9 @@ public class Order {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate createdOn;
+
+	@OneToOne(cascade = CascadeType.REMOVE)
+	private Invoice invoice;
 
 	@ManyToOne
 	@NotNull
@@ -118,6 +122,12 @@ public class Order {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	public Invoice getInvoice() {
+		return invoice;
+	}
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
 	
 
