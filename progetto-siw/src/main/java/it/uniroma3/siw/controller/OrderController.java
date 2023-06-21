@@ -56,6 +56,19 @@ public class OrderController{
         return "order.html";            
     }
 
+    @GetMapping(value = "/createOrder/{customerId}")
+    private String createOrder(@PathVariable("customerId") Long customerId,Model model){
+        Order order = this.orderService.createOrderForCustomer(customerId);
+        model.addAttribute("order",order);
+        model.addAttribute("customer", this.orderService.getOrder(order.getId()).getCustomer());
+        model.addAttribute("customers", customerService.getAllCustomersNotInOrder(order));
+        if(order.getPriceList() == null){
+            model.addAttribute("priceLists", priceListService.getAllPriceLists());
+        }else
+            model.addAttribute("priceLists", priceListService.getAllPriceListsNotInOrder(order));
+        return "order.html";          
+    }
+
     @PostMapping(value = "/newOrder")
     private String newOrder(@Valid @ModelAttribute("order") Order order, BindingResult bindingResult, Model model){
         Order newOrder = this.orderService.newOrder(order, bindingResult);

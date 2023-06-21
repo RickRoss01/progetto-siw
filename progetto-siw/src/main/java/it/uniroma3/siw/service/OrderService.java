@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import it.uniroma3.siw.controller.validator.OrderValidator;
+import it.uniroma3.siw.model.Customer;
 import it.uniroma3.siw.model.Order;
 import it.uniroma3.siw.repository.OrderRepository;
 import it.uniroma3.siw.repository.UserRepository;
@@ -28,6 +29,8 @@ public class OrderService {
     @Autowired
     protected UserService userService;
 
+    @Autowired
+    CustomerService customerService;
 
     public Object getAllOrdersBy50(Integer page) {
         Pageable pageable = PageRequest.of(page-1, 6);
@@ -62,6 +65,15 @@ public class OrderService {
         if(order.isPresent()){
             this.orderRepository.delete(order.get());
         }
+    }
+
+    public Order createOrderForCustomer(Long customerId) {
+        Order order = new Order();
+        order.setCommerciale(this.userService.getCurrentUser());
+        Customer customer = this.customerService.getCustomer(customerId);
+        order.setCustomer(customer);
+        this.orderRepository.save(order); 
+        return order;
     }
 
     

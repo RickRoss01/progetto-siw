@@ -73,7 +73,7 @@
               </div>
             </a>
 
-            <a href="#" th:if="${customer.id}">
+            <a th:href="@{'/createOrder/' + ${customer.id}}" th:if="${customer.id}">
               <div class="d-flex align-items-center">
                 <span><i class="fa-solid fa-basket-shopping" style="padding: 5px"></i>Crea Ordine</span>
               </div>
