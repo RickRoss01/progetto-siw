@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Vertical Sitemap using Bootstrap</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/stileindex.css">
+  <script src="https://kit.fontawesome.com/911a8faad0.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <nav class="navbar" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+      <a href="/" class="navbar-brand">SiwCRM</a>
+      <div class="d-flex align-items-center">
+        <span
+          th:if="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
+          th:text="'Ciao, ' + ${#request.userPrincipal.principal.attributes.name}"> </span>
+        <span
+          th:unless="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
+          th:text="'Ciao, ' + ${#request.userPrincipal.principal.username}"> </span>
+        <a href="/logout" class="btn btn-outline-primary">Log Out</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 sitemap">
+        <h1>Site Map</h1>
+        <ul class="list-group">
+          <li class="list-group-item"><a id="nonactive">Vendite</a>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="/customers">Clienti</a></li>
+              <li class="list-group-item"><a href="/contacts" >Contatti</a></li>
+              <li class="list-group-item"><a href="/orders">Ordini</a></li>
+              <li class="list-group-item"><a href="/invoices" id="active">Fatture</a></li>
+            </ul>
+          </li>
+          <li class="list-group-item"><a id="nonactive">Gestione</a>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="/priceLists">Listini</a></li>
+              <li class="list-group-item"><a href="/products">Prodotti</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-10 main-content">
+        <form th:object="${invoice}">
+          <div class="d-flex" id="menu">
+
+            <a href="/invoices">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-reply" style="padding: 5px"></i></span>
+              </div>
+            </a>
+            <a th:href="@{'/order/' + ${invoice.order.id}}">
+              <div class="d-flex align-items-center">
+              <span><i class="fa-solid fa-basket-shopping" style="padding: 5px"></i>Vai all'Ordine</span>
+              </div>
+            </a>
+
+
+
+          </div>
+          <div class="d-flex">
+            
+            <div class="d-flex flex-column" id="ContactInformation">
+              <h4 style="padding: 10px;">Informazioni Generali</h4>
+              
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Id Fattura</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input type="text" class="form-control" th:value="${invoice.id}" name="id" placeholder="" readonly>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Totale Fattura</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input type="text" class="form-control" th:value="${invoice.costoTot} + ' €'" name="costoTot" placeholder="" readonly>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Data fatturazione</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input type="text" class="form-control" th:value="${invoice.dataFatt}" name="dataFatt" placeholder="" readonly> 
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Ordine</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input type="text" class="form-control" th:value="${invoice.order.nome}" name="order" placeholder="" readonly>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Cliente</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input type="text" class="form-control" th:value="${invoice.order.customer.ragioneSociale}" name="customer" placeholder="" readonly> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        
+      </div>
+
+    </div>
+  </div>
+  </div>
+  </div>
+</body>

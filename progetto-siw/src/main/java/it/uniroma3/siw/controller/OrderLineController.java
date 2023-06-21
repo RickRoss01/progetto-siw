@@ -16,7 +16,6 @@ import it.uniroma3.siw.model.OrderLine;
 import it.uniroma3.siw.service.OrderLineService;
 import it.uniroma3.siw.service.OrderService;
 import it.uniroma3.siw.service.PriceListItemService;
-import it.uniroma3.siw.service.ProductService;
 
 @Controller
 public class OrderLineController{
@@ -30,10 +29,6 @@ public class OrderLineController{
 
     @Autowired
     private PriceListItemService priceListItemService;
-
-    @Autowired
-    private ProductService productService;
-
 
     @GetMapping(value = "/addOrderLine/{orderId}")
     private String addOrderLine(@PathVariable("orderId") Long orderId,Model model){

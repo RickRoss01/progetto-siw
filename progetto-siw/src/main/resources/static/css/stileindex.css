@@ -79,6 +79,12 @@ a:hover{
     text-decoration: none;
   }
 
+  #nonactive:hover{
+    color: blue;
+    background-color: transparent;
+    
+  }
+
  
 
 tr{
@@ -143,7 +149,6 @@ tr:hover{
   }
 
   #ContactElement {
-    min-width: 600px;
     margin: 20px;
   }
 

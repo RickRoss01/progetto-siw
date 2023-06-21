@@ -109,7 +109,7 @@ public class AuthenticationController {
                 Authentication newAuthentication = new UsernamePasswordAuthenticationToken(principal, credentials, updatedAuthorities);
                 SecurityContextHolder.getContext().setAuthentication(newAuthentication);
                 if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) 
-                    return "index.html";
+                    return "redirect:/customers";
             }
         
             
@@ -118,13 +118,13 @@ public class AuthenticationController {
             UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	    Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
     	    if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
-                return "index.html";
+                return "redirect:/customers";
             
         }
        
         
     }
-    return "index.html";
+    return "redirect:/customers";
 }
 
     @PostMapping(value = { "/register" })

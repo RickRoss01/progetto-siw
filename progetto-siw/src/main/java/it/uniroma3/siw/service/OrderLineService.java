@@ -1,26 +1,18 @@
 package it.uniroma3.siw.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import it.uniroma3.siw.controller.validator.OrderLineValidator;
-import it.uniroma3.siw.controller.validator.PriceListItemValidator;
-import it.uniroma3.siw.controller.validator.PriceListValidator;
-import it.uniroma3.siw.model.Order;
 import it.uniroma3.siw.model.OrderLine;
-import it.uniroma3.siw.model.PriceList;
 import it.uniroma3.siw.model.PriceListItem;
 import it.uniroma3.siw.repository.OrderLineRepository;
 import it.uniroma3.siw.repository.PriceListItemRepository;
-import it.uniroma3.siw.repository.PriceListRepository;
 
 
 @Service
