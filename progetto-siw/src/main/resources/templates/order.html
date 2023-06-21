@@ -9,13 +9,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/stileindex.css">
   <script src="https://kit.fontawesome.com/911a8faad0.js" crossorigin="anonymous"></script>
-
-  <style>
-    
-
-
-
-  </style>
+  
 </head>
 
 <body>
@@ -57,7 +51,7 @@
         </ul>
       </div>
 
-      <div class="col-md-10 main-content">
+      <div class="col-md-10 main-content" id="main-content">
         <form th:action="@{/updateOrder}" method="POST" th:object="${order}" th:if="${order.id}">
           <div class="d-flex" id="menu">
 
@@ -152,8 +146,7 @@
 
 
         </form>
-
-        <form th:action="@{/newOrder}" method="POST" th:object="${order}" th:unless="${order.id}">
+          <form th:action="@{/newOrder}" method="POST" th:object="${order}" th:unless="${order.id}">
           <div class="d-flex" id="menu">
 
             <a href="/orders">
@@ -237,7 +230,7 @@
           </div>
 
 
-        </form>
+          </form>
         <div class="container-fluid container-table mx-auto p-2" >
           <h4>Linee Ordine</h4>
           <div class="table-responsive" >

@@ -1,10 +1,17 @@
 body, html {
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
+}
+
+nav{
+  height: 5vh;
+}
+a:hover{
+  text-decoration: none;
 }
 .sitemap {
     background-color: #F0F0F0;
-    height: 100vh;
+    height: 95vh;
     padding: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14px;
@@ -118,7 +125,9 @@ tr:hover{
   }
 
 
-  .col-md-10 {
+  .col-md-10 {      
+    height: 95vh; /* Imposta l'altezza desiderata */
+    overflow-y: scroll; /* Abilita lo scorrimento verticale */
     padding: 0;
   }
 
