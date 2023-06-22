@@ -137,6 +137,9 @@ tr:hover{
     padding: 0;
   }
 
+  #ContactInformation{
+    margin-top: 5% !important;
+  }
   #ContactInformation, #tablecustomer {
     margin: 30px 10px;
     width: 100%;
@@ -152,3 +155,8 @@ tr:hover{
     margin: 20px;
   }
 
+  form #menu{
+    position: fixed;
+    background-color: #F0F0F0;
+    width: -webkit-fill-available;
+  }

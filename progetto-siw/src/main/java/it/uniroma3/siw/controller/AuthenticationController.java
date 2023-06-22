@@ -40,7 +40,7 @@ public class AuthenticationController {
 
     @GetMapping(value = "/") 
 	public String index (Model model) {
-		return "index.html";
+		return "redirect:/customers";
 	}
 	
 	@GetMapping(value = "/register") 
