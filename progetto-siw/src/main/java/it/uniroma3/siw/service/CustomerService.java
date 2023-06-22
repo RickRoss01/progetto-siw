@@ -58,6 +58,9 @@ public class CustomerService {
     public void deleteCustomer(Long customerId){
         Optional<Customer> customer = this.customerRepository.findById(customerId);
         if (customer.isPresent()) {
+            for(Contact contact : customer.get().getContacts()){
+                contact.setCustomer(null);
+            }
             customerRepository.delete(customer.get());
         }
     }
