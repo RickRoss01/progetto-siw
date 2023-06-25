@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>SiwCRM</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/stileindex.css">
+  <script src="https://kit.fontawesome.com/911a8faad0.js" crossorigin="anonymous"></script>
+
+  <style>
+    
+
+
+
+  </style>
+</head>
+
+<body>
+  <nav class="navbar" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+      <a class="navbar-brand">SiwCRM</a>
+      <div class="d-flex align-items-center">
+        <span
+          th:if="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
+          th:text="'Ciao, ' + ${#request.userPrincipal.principal.attributes.name}"> </span>
+        <span
+          th:unless="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
+          th:text="'Ciao, ' + ${#request.userPrincipal.principal.username}"> </span>
+        <a href="/logout" class="btn btn-outline-primary">Log Out</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 sitemap">
+        <h1>Site Map</h1>
+        <ul class="list-group">
+          <li class="list-group-item"><a id="nonactive">Vendite</a>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="/customers">Clienti</a></li>
+              <li class="list-group-item"><a href="/contacts">Contatti</a></li>
+              <li class="list-group-item"><a href="/orders">Ordini</a></li>
+              <li class="list-group-item"><a href="/invoices">Fatture</a></li>
+            </ul>
+          </li>
+          <li class="list-group-item"><a id="nonactive">Gestione</a>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="/priceLists">Listini</a></li>
+              <li class="list-group-item"><a href="/products" id="active">Prodotti</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-10 main-content">
+        <form th:action="@{/updateProduct}" method="POST" th:object="${product}" th:if="${product.id}">
+          <div class="d-flex" id="menu">
+
+            <a href="/products">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-reply" style="padding: 5px"></i></span>
+              </div>
+            </a>
+
+            <a href="/formNewProduct">
+              <div class="d-flex align-items-center">
+              <span><i class="fa-solid fa-basket-shopping" style="padding: 5px"></i>Crea Prodotto</span>
+              </div>
+            </a>
+
+            <a th:href="@{'/deleteProduct/' + ${product.id}}">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-trash-can" style="padding: 5px"></i>Elimina</span>
+              </div>
+            </a>
+
+            <button type="submit" style="border: transparent; background-color: transparent; padding: 0px;">
+              <div class="d-flex align-items-center">
+              <span><i class="fa-solid fa-floppy-disk" style="padding: 5px"></i>Salva</span>
+              </div>
+            </button>
+
+          </div>
+          <div th:if="${#fields.hasGlobalErrors()}">
+
+            <div class="alert alert-danger" role="alert" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+               <a href="#" class="alert-link"></a>
+            </div>
+          </div>
+          <div class="d-flex">
+            
+            <div class="d-flex flex-column" id="ContactInformation">
+              <h4 style="padding: 10px;">Informazioni Generali</h4>
+              
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Id Prodotto</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input type="text" class="form-control" th:value="${product.id}" name="id" placeholder="" readonly>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Nome</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input type="text" class="form-control" th:value="${product.nome}" name="nome" placeholder="">
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Prezzo di riferimento</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input type="text" class="form-control" th:value="${product.prezzo}" name="prezzo" placeholder="">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </form>
+
+        <form th:action="@{/newProduct}" method="POST" th:object="${product}" th:unless="${product.id}">
+          <div class="d-flex" id="menu">
+
+            <a href="/products">
+              <div class="d-flex align-items-center">
+                <span><i class="fa-solid fa-reply" style="padding: 5px"></i></span>
+              </div>
+            </a>
+
+            <a href="/formNewProduct">
+              <div class="d-flex align-items-center">
+              <span><i class="fa-solid fa-basket-shopping" style="padding: 5px"></i>Crea Ordine</span>
+              </div>
+            </a>
+
+            <button type="submit" style="border: transparent; background-color: transparent; padding: 0px;">
+              <div class="d-flex align-items-center">
+              <span><i class="fa-solid fa-floppy-disk" style="padding: 5px"></i>Salva</span>
+              </div>
+            </button>
+
+          </div>
+          <div th:if="${#fields.hasGlobalErrors()}">
+
+            <div class="alert alert-danger" role="alert" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+               <a href="#" class="alert-link"></a>
+            </div>
+          </div>
+          <div class="d-flex">
+            
+            <div class="d-flex flex-column" id="ContactInformation">
+              <h4 style="padding: 10px;">Informazioni Generali</h4>
+              
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Id Prodotto</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input type="text" class="form-control" th:value="${product.id}" name="id" placeholder="" readonly>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Nome</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('nome')}" type="text" class="form-control" th:value="${nome}" name="nome" placeholder="">
+                  <input th:if="${#fields.hasErrors('nome')}" type="text" class="form-control is-invalid" th:value="${nome}" name="nome" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+                </div>
+              </div>
+              
+              <div class="d-flex align-items-center mb-3" id="ContactElement">
+                <span>Prezzo</span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <input th:if="${!#fields.hasErrors('prezzo')}" type="text" class="form-control" th:value="${prezzo}" name="prezzo" placeholder="">
+                  <input th:if="${#fields.hasErrors('prezzo')}" type="text" class="form-control is-invalid" th:value="${prezzo}" name="prezzo" placeholder="">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('prezzo')}" th:errors="*{prezzo}"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </form>
+          
+        
+        
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</body>

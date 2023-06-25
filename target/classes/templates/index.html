@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SiwCRM</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/stileindex.css">
+</head>
+<body>
+  <nav class="navbar" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+      <a href="/" class="navbar-brand">SiwCRM</a>
+      <div class="d-flex align-items-center">
+        <span
+          th:if="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
+          th:text="'Ciao, ' + ${#request.userPrincipal.principal.attributes.name}"> </span>
+        <span
+          th:unless="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
+          th:text="'Ciao, ' + ${#request.userPrincipal.principal.username}"> </span>
+        <a href="/logout" class="btn btn-outline-primary">Log Out</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 sitemap">
+        <h1>Site Map</h1>
+        <ul class="list-group">
+          <li class="list-group-item"><a id="section">Vendite</a>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="/customers">Clienti</a></li>
+              <li class="list-group-item"><a href="/contacts">Contatti</a></li>
+              <li class="list-group-item"><a href="/orders">Ordini</a></li>
+              <li class="list-group-item"><a href="/invoices">Fatture</a></li>
+            </ul>
+          </li>
+          <li class="list-group-item"><a id="section">Gestione</a>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="/priceLists">Listini</a></li>
+              <li class="list-group-item"><a href="/products">Prodotti</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-10 main-content">
+        <h1>Main Content Area</h1>
+      </div>
+    </div>
+    </div>
+  </div>
+  
+  <!-- jQuery e plugin JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd"></script>

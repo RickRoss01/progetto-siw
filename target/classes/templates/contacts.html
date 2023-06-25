@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>SiwCRM</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/stileindex.css">
+  <script src="https://kit.fontawesome.com/911a8faad0.js" crossorigin="anonymous"></script>
+
+  <style>
+    .col-md-10 {
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+      <a class="navbar-brand">SiwCRM</a>
+      <div class="d-flex align-items-center">
+        <span
+          th:if="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
+          th:text="'Ciao, ' + ${#request.userPrincipal.principal.attributes.name}"> </span>
+        <span
+          th:unless="${#request.userPrincipal.principal instanceof T(org.springframework.security.oauth2.core.user.DefaultOAuth2User)}"
+          th:text="'Ciao, ' + ${#request.userPrincipal.principal.username}"> </span>
+        <a href="/logout" class="btn btn-outline-primary">Log Out</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 sitemap">
+        <h1>Site Map</h1>
+        <ul class="list-group">
+          <li class="list-group-item"><a id="nonactive">Vendite</a>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="/customers" id="nonactive">Clienti</a></li>
+              <li class="list-group-item"><a href="/contacts" id="active">Contatti</a></li>
+              <li class="list-group-item"><a href="/orders">Ordini</a></li>
+              <li class="list-group-item"><a href="/invoices">Fatture</a></li>
+            </ul>
+          </li>
+          <li class="list-group-item"><a id="nonactive">Gestione</a>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="/priceLists">Listini</a></li>
+              <li class="list-group-item"><a href="/products">Prodotti</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-10 main-content">
+        
+          <div class="d-flex" id="menu">
+            <a href="/formNewContact">
+              <div class="d-flex align-items-center">
+              <span><i class="fa-solid fa-plus" style="padding: 5px"></i>Nuovo</span>
+              </div>
+            </a>
+
+          </div>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Cognome</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Indirizzo Mail</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="contact : ${contacts}">
+                <th scope="row"><a th:text="${contact.cognome}" th:href="@{'/contact/' + ${contact.id}}" class="stretched-link"></a></th>
+                  <td th:text="${contact.nome}">Andrea</td>
+                  <td th:text="${contact.telefono}">3693693636</td>
+                  <td th:text="${contact.email}">and.ciam@uniromatre.it</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
